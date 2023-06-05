@@ -64,6 +64,7 @@ simulate_graph_data <- function(d, n, adj_matrix=NA, weighted_adj=NA, prob, v=0.
   return(results)
 }
 
+set.seed(050623)
 
 simulation1 <- simulate_graph_data(d = 10, n = 500, prob = 0.2)
 
@@ -75,6 +76,24 @@ graph1 <- graph_from_adjacency_matrix(
   weighted = TRUE
 )
 
-pdf(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/plots.pdf")
+#wie simuliert man den zweiten graphen? 
+#erste möglichkeit: andere prob
+simulation2 <- simulate_graph_data(d = 10, n = 500, prob = 0.4)
+
+graph2 <- graph.adjacency(simulation2$weighted_adj, weighted = TRUE, mode = "undirected")
+graph2 <- graph_from_adjacency_matrix(
+  simulation2$weighted_adj,
+  mode = "undirected",
+  weighted = TRUE
+)
+
+#man könnte auch die adjazenzmatrix von dem ersten graphen nehmen und die verändern
+
+
+pdf(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/graphs.pdf")
 plot(graph1,edge.label = E(graph1)$weight)
+plot(graph2,edge.label = E(graph2)$weight)
 dev.off()
+
+save(simulation1, file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations/simulation1.RData")
+save(simulation2, file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations/simulation2.RData")
