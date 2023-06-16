@@ -1,30 +1,41 @@
 library(NetworkComparisonTest)
 
 
-load(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations/simulation1.RData")
-load(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations/simulation2.RData")
+simulation_path <- "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations/gen_data_SpiecEasi_weighted_reps_100__samples_150_d_20_e_10_cn_100_.RData"
+load(simulation_path)
 
-data1 <- simulation1$data
-data2 <- simulation2$data
+gen_data1 <- result$data_1
+gen_data2 <- result$data_2
 
-test1 <- NCT(data1, data2, test.edges = T, test.centrality = TRUE)
+n_reps <- length(gen_data2)
+
+nwinv.pval <- numeric(n_reps)
+
+for (i in 1:n_reps)) { #(
+data1 <- gen_data1[[i]]
+data2 <- gen_data2[[i]]
+
+print(paste("currently doing repetition", i))
+test <- NCT(data1, data2, it = 5000, gamma = 0.5, weighted = TRUE)
+
+#extract the p-values from the test
 
 #The p value resulting from the permutation test concerning the maximum difference in edge weights.
-test1$nwinv.pval
+nwinv.pval[i] <- test$nwinv.pval
+
 #p-values (corrected for multiple testing or not according to ’p.adjust.methods’)
 #per edge from the permutation test concerning differences in edges weights
-test1$einv.pvals
+#einv.pvals[i] <- test$einv.pvals
+
 #p-values(corrected for multiple testing or not according to ’p.adjust.methods’)
 #per node from the permutation test concerning differences in centralities
-test1$diffcen.pval
+#diffcen.pval[i] <- test$diffcen.pval
+}
 
-test2 <- NCT(data1, data1, test.edges = T, test.centrality = TRUE)
 
-#The p value resulting from the permutation test concerning the maximum difference in edge weights.
-test2$nwinv.pval
-#p-values (corrected for multiple testing or not according to ’p.adjust.methods’)
-#per edge from the permutation test concerning differences in edges weights
-test2$einv.pvals
-#p-values(corrected for multiple testing or not according to ’p.adjust.methods’)
-#per node from the permutation test concerning differences in centralities
-test2$diffcen.pval
+
+result_NCT <- data.frame(nwinv.pval)# einv.pvals, diffcen.pval)
+
+#write somthing to save the results
+save(result_NCT, file = paste0("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/results/result_NCT_", basename(simulation_path), ".RData"))
+
