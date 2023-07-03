@@ -59,7 +59,7 @@ graph.data <- function(d, n, gm=NA, theta=NA, prob, v=0.1, u=0.1, upper.bound=.9
  return(results)
 }
 
-graph1 <- graph.data( d= 20, n = 5, prob = 0.2)
+graph1 <- graph.data( d= 20, n = 250, prob = 0.2)
 NCT(graph1$data1, graph1$data2, test.edges = T, gamma = 0.5)
 
 ############ programming the permutation test in parallel test
@@ -75,6 +75,10 @@ l<-4#samplesizes
 threeGammas <- list(gamma0=list(), gamma25=list(),gamma50=list())
  for(gam in 1:3){
  if(gam==1){gamma<-0}else if(gam==2) {gamma<-0.25} else {gamma<-0.5}
+
+
+ ####
+ gamma <- 0
 threeVariableNumbers < -list(NV10=list(), NV20=list(), NV30=list())
 for(nv in 1:3){
  nV<-nv*10
@@ -182,4 +186,14 @@ progressbar=F)$nwinv.pval
  }
 threeGammas[[gam]]<-threeVariableNumbers
 }
-saveRDS(threeGammas,file=paste0("output_invariance_dens1_equal.rds")))
+saveRDS(threeGammas,file=paste0("output_invariance_dens1_equal.rds"))
+
+
+
+
+
+adj = as.matrix(c(0, 1), c(1, 0))
+
+vec = c(0, 0.1, 0.3, 0.1, 0, 0.3, 0.3, 0.3, 0)
+adj = matrix(vec, nrow = 3, ncol = 3)
+solve(adj)

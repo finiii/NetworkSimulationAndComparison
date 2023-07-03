@@ -11,17 +11,17 @@ library(SpiecEasi)
 
 ### Choose condition number of precision matrix
 
-condition_number = 100
+condition_number = 10
 
 
 ### Choose number of samples
 
-no_samples = 150
+no_samples = 250
 
 
 #specify the number of edges
 d = 20
-e = 10
+e = 80
 
 
 #Choose graph_type between 'cluster', 'band' or 'scale_free'
@@ -37,13 +37,16 @@ e = 10
   mode = "undirected"
 )
 
+#pdf(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/graphs_SpiecEasi.pdf")
+#plot(graph_plot)
+#dev.off()
+
 #for an unweighted graph, choose the theta limits to be c(1,1)
     Prec <- SpiecEasi::graph2prec(graph, targetCondition = condition_number)
     Cor <- cov2cor(prec2cov(Prec))
 
-# diese samples will ich aber z.B. 100 mal nehmen, also muss ich was bauen
-# creates samples from a multivariate normal distribution, with counts correlated according to Cor
-#aber eigentlich will ich ja immer zwei Datensätze haben die ich vergleichen kann... vielleicht kann ich die schleife einfach nochmal machen
+    round(Cor, 3)
+    pracma::cond(Cor)
 
 
 #how is it with the seeds bc when I set one it will always generate the same multivariate normal distr
@@ -70,16 +73,17 @@ e = 10
   }
   
   
-  result <- list(data_1=gen_data1, data_2 = gen_data2, sigma=sigma, graph = graph)
+  result <- list(data_1=gen_data1, data_2 = gen_data2, sigma=Cor, graph = graph)
 
-
+result$sigma
+#geht also auch mit kleienerer condition number!!!
 
 pdf(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/graphs.pdf")
 plot(graph_plot)
 dev.off()
 
   #hier ändern je nachdem ob weighted oder nicht weighted
-save(result,  file = paste("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations/gen_data_SpiecEasi_weighted_reps_", no_reps, "_" ,
+save(result,  file = paste("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations_SpiecEasi/gen_data_SpiecEasi_weighted_reps_", no_reps, "_" ,
                               "_samples_",no_samples,"_d_",d, "_e_", e, "_cn_",condition_number, "_", ".RData", sep=''))
 
 
