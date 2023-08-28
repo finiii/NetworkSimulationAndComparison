@@ -11,7 +11,7 @@ library(SpiecEasi)
 
 ### Choose condition number of precision matrix
 
-condition_number = 10
+condition_number = 
 
 
 ### Choose number of samples
@@ -20,8 +20,8 @@ no_samples = 250
 
 
 #specify the number of edges
-d = 20
-e = 80
+d = 10
+e = 10
 
 
 #Choose graph_type between 'cluster', 'band' or 'scale_free'
@@ -63,7 +63,6 @@ e = 80
     #seeds1[[i]] <- sd + i
   }
 
-#create a second datasets under different seeds!! 
  for (i in 1: no_reps){
     print(i)
     #set.seed(sd + i + 100000)
@@ -75,8 +74,7 @@ e = 80
   
   result <- list(data_1=gen_data1, data_2 = gen_data2, sigma=Cor, graph = graph)
 
-result$sigma
-#geht also auch mit kleienerer condition number!!!
+pracma::cond(result$sigma)
 
 pdf(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/graphs.pdf")
 plot(graph_plot)
@@ -84,7 +82,6 @@ dev.off()
 
   #hier ändern je nachdem ob weighted oder nicht weighted
 save(result,  file = paste("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations_SpiecEasi/gen_data_SpiecEasi_weighted_reps_", no_reps, "_" ,
-                              "_samples_",no_samples,"_d_",d, "_e_", e, "_cn_",condition_number, "_", ".RData", sep=''))
-
+                              "_samples_",no_samples,"_d_",d, "_e_", e, "_cn_",condition_number, ".RData", sep=''))
 
 
