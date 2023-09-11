@@ -2,7 +2,7 @@
 rm(list = ls())
 
 #set the parameter values
-eta_0 = 1
+eta_0 = rep(0.5, 10)
 #eta_1 = eta_0
 
 # set the dimension/length of X
@@ -43,10 +43,8 @@ X_0 = matrix(NA, nrow = dim, ncol = n_samples)
 
 
 for (i in 1:dim){
-    eta_i = eta_y
+    eta_i = eta_y[i]
     theta_ii =  0 #theta[i,i], we have theta_ii = 0 from the def of the model
-    #A_ii = wie berechne ich A? A = exp(...)
-    A_ii = exp(eta_i)
     X_0[i,] = rpois(n_samples, exp(eta_i))
 
 }
@@ -63,7 +61,7 @@ for(j in 1:n_samples){
   for (i in 1:dim){
     #i-th row of theta after removing the i-th column from theta
     theta_minus_i = theta[i,-i]
-    eta_minus_i[i,j] = eta_0 + theta_minus_i %*% X[-i,j]
+    eta_minus_i[i,j] = eta_0[i] + theta_minus_i %*% X[-i,j]
 
 }
 }
@@ -83,8 +81,9 @@ for(j in 1:n_samples){
 
 # Step 4: caluclate the likelihood
 likelihood_samples = numeric(n_samples)
+#ich muss das hier mit dem ziel-eta berechnen, also mit eta_0!!!
 for(j in 1:n_samples){
-  likelihood_samples[j] = exp(t(eta_minus_i[,j]) %*% X[,j]+ 0.5 * t(X[,j]) %*% theta %*% X[,j]+ t(rep(1, dim)) %*% -log(factorial(X[,j])) )
+  likelihood_samples[j] = exp(t(eta_0) %*% X[,j]+ 0.5 * t(X[,j]) %*% theta %*% X[,j]+ t(rep(1, dim)) %*% -log(factorial(X[,j])) )
 }
 likelihood = prod(likelihood_samples)
 print(likelihood)
