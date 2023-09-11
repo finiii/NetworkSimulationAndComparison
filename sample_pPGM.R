@@ -12,22 +12,21 @@ dim = 10
 n_samples = 100
 
 # Create a sample correlation matrix with negative values
-#das kann ich dann auch noch besser auftomatisch machen, aber gerade ok
-theta = matrix(c(
-  1.00, -0.70, -0.20, -0.40, -0.50, -0.60, -0.30, -0.10, -0.45, -0.55,
- -0.70,  1.00, -0.60, -0.35, -0.25, -0.15, -0.20, -0.40, -0.30, -0.50,
- -0.20, -0.60,  1.00, -0.50, -0.40, -0.25, -0.15, -0.10, -0.20, -0.30,
- -0.40, -0.35, -0.50,  1.00, -0.45, -0.35, -0.10, -0.20, -0.15, -0.25,
- -0.50, -0.25, -0.40, -0.45,  1.00, -0.55, -0.60, -0.30, -0.20, -0.10,
- -0.60, -0.15, -0.25, -0.35, -0.55,  1.00, -0.45, -0.40, -0.30, -0.20,
- -0.30, -0.20, -0.15, -0.10, -0.60, -0.45,  1.00, -0.35, -0.25, -0.40,
- -0.10, -0.40, -0.10, -0.20, -0.30, -0.40, -0.35,  1.00, -0.55, -0.25,
- -0.45, -0.30, -0.20, -0.15, -0.20, -0.30, -0.25, -0.55,  1.00, -0.45
- -0.45, -0.40, -0.10, -0.35, -0.10, -0.30, -0.20, -0.25, -0.35,  1.00
-), nrow = 10, byrow = TRUE)
+# Generate a random correlation matrix with negative values
+theta <- matrix(0, nrow = dim, ncol = dim)
 
-#set the diagoal to 0
-diag(theta) = 0
+# Fill the upper triangular part with random negative values
+for (i in 1:(dim - 1)) {
+  for (j in (i + 1):dim) {
+    theta[i, j] <- runif(1, -0.1, 0)  # Random value between -1 and 0
+  }
+}
+
+# Copy the upper triangular values to the lower triangular part
+theta[lower.tri(theta)] <- t(theta)[lower.tri(theta)]
+
+# Set the diagonal elements to 0
+diag(theta) <- 0
 
 
 
@@ -51,7 +50,12 @@ for (i in 1:dim){
     X_0[i,] = rpois(n_samples, exp(eta_i))
 
 }
+X <- X_0
+#write a loop that does the following code 10 times (ich brauche anderes stopping criterion)
+#hier dran arbeite ich gerade!!!
 
+likelihood_values = numeric(1000)
+for(loop in 1:1000){
 #step 3
  #a) compute the conditional parameters
 eta_minus_i = matrix(NA, nrow = dim, ncol = n_samples)
@@ -59,7 +63,7 @@ for(j in 1:n_samples){
   for (i in 1:dim){
     #i-th row of theta after removing the i-th column from theta
     theta_minus_i = theta[i,-i]
-    eta_minus_i[i,j] = eta_0 + theta_minus_i %*% X_0[-i,j]
+    eta_minus_i[i,j] = eta_0 + theta_minus_i %*% X[-i,j]
 
 }
 }
@@ -67,15 +71,24 @@ for(j in 1:n_samples){
  #b) compute X_1
  X = matrix(NA, nrow = dim, ncol = n_samples)
  #how do I generate from this distribution?
+  for(j in 1:n_samples){
+    for (i in 1:dim){
+      X[i,j] = rpois(1, exp(eta_minus_i[i,j]))
+    }
+  }
+
 
 #c) update
 
-X = X_0
+
 # Step 4: caluclate the likelihood
-j = 1
-likelihood = numeric(n_samples)
+likelihood_samples = numeric(n_samples)
 for(j in 1:n_samples){
-  likelihood[j] = exp(t(eta_minus_i[,j]) %*% X[,j]+ 0.5 * t(X[,j]) %*% theta %*% X[,j]+ t(rep(1, dim)) %*% -log(factorial(X[,j])) - exp(eta_minus_i[,j]))
+  likelihood_samples[j] = exp(t(eta_minus_i[,j]) %*% X[,j]+ 0.5 * t(X[,j]) %*% theta %*% X[,j]+ t(rep(1, dim)) %*% -log(factorial(X[,j])) )
+}
+likelihood = prod(likelihood_samples)
+print(likelihood)
+likelihood_values[loop] = likelihood
 }
 
-#das A stimmt hier sicher noch nicht!!!!!
+#likelihood ändert sich nicht, habe ich einen Fehler im Code????
