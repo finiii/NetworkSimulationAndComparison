@@ -20,13 +20,22 @@ number_edges = 20
 #probability of an edge
 edge_probability = 0.1
 
+#samples a random graph with d nodes
+#every possible edge is present with probability prob
+adj_matrix.ig <- erdos.renyi.game(d,prob)
+#get adjacency matrix
+adj_matrix <- as.matrix(get.adjacency(adj_matrix.ig))
+
 
 #swet the upper and the lower bound for the uniform distribution the edge weights are drawn from
-upper_bound = 0.3
-lower_bound = 0.2
+lower_bound = 0.6
+upper_bound = 0.9
+
+
+
 
 #set the sample size
-sample_size = 1000
+sample_size = 250
 
 #number of repetitions
 n_reps = 100
@@ -40,12 +49,6 @@ n_reps = 100
 simulate_graph_data <- function(d, n, adj_matrix=NA, weighted_adj=NA, prob,
                        upper.bound=.9, lower.bound=.3, n_reps = 100){
 
-
-      #samples a random graph with d nodes
-      #every possible edge is present with probability prob
-      adj_matrix.ig <- erdos.renyi.game(d,prob)
-      #get adjacency matrix
-      adj_matrix <- as.matrix(get.adjacency(adj_matrix.ig))
       #simulates a weighted_adj matrix, this is a weighted version of the adjecency matrix
       weighted_adj = matrix(runif(d^2, lower.bound, upper.bound), d, d) * adj_matrix
 
@@ -80,14 +83,14 @@ simulate_graph_data <- function(d, n, adj_matrix=NA, weighted_adj=NA, prob,
 }
 
 simulation = simulate_graph_data(d = number_edges, prob = edge_probability, n = sample_size, upper.bound = upper_bound, lower.bound = lower_bound)
-round(simulation$sigma,3)
-round(simulation$omega, 3)
-simulation$weighted.adj
+#round(simulation$sigma,3)
+#round(simulation$omega, 3)
+#simulation$weighted.adj
 
 
 save(simulation, file = paste0("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations/simulation_", number_edges, "_edges_", edge_probability, "_prob_", lower_bound, "_", upper_bound, "_bounds_", sample_size, "_sample_size_", n_reps, "_repetitions.RData"))
 
-simulation$adj_matrix
-pracma::cond(simulation$sigma)
-min(simulation$sigma)
-round(simulation$omega,3)
+#simulation$adj_matrix
+#pracma::cond(simulation$sigma)
+#min(simulation$sigma)
+#round(simulation$omega,3)

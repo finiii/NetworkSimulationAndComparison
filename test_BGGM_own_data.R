@@ -109,6 +109,7 @@ dev.off()
 
 ### same graphs
 simulation_path <-"/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations/simulation_10_edges_0.3_prob_0.3_0.9_bounds_1000_sample_size_100_repetitions.RData"
+simulation_path <- "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations/simulation_10_edges_0.3_prob_0.3_0.9_bounds_250_sample_size_100_repetitions.RData"
 load(simulation_path)
 
 Yg1 <- simulation$data_1[[1]]
@@ -119,7 +120,8 @@ Yg2 <- simulation$data_2[[1]]
 
 
 ppc <- BGGM::ggm_compare_ppc(Yg1, Yg2,
-                       custom_obs = obs,
-                       iter = 1000)
+                       iter = 100)
 
 ppc
+
+ppc[["ppp_jsd"]]
