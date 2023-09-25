@@ -4,6 +4,8 @@ library("Matrix")
 library("matrixcalc")
 library("MASS")
 library("igraph")
+library("ggplot2")
+library("dplyr")
 #set.seed(1234)
 #set the parameter values
 eta_0 = rep(3, 10)
@@ -23,7 +25,7 @@ theta <- matrix(0, nrow = dim, ncol = dim)
 # Fill the upper triangular part with random negative values
 for (i in 1:(dim - 1)) {
   for (j in (i + 1):dim) {
-    theta[i, j] <- runif(1, -20, -10)  # Random value
+    theta[i, j] <- runif(1, -1, 0)  # Random value
     theta[ j,i]=theta[i, j]
   }
 }
@@ -89,6 +91,8 @@ eta_minus_i= matrix(NA, nrow = dim, ncol = n_samples)
 log_likelihood_variance = numeric(iterations)
 X_old = X_0
 X_new = X_0
+mean_X_new = matrix(NA, nrow = dim, ncol = iterations)
+report = numeric(iterations)
 for(loop in 1:iterations){
   
   #step 3
@@ -101,38 +105,49 @@ for(loop in 1:iterations){
       
       X_new[i,j] = rpois(1, exp(eta_minus_i[i,j]))
     }
+
+
   }
   #update X_old and eta_minus_i_minus_1
   #eta_minus_i_old = eta_minus_i
-  X_old = X_new
+  #X_old = X_new
   
   #c) update
   
-  # Step 4: caluclate the likelihood
-  log_likelihood_samples = numeric(n_samples)
-  
-  for(j in 1:n_samples){
-    log_likelihood_samples[j] = t(eta_0) %*% X_new[,j]+ 0.5 * t(X_new[,j]) %*% theta %*% X_new[,j]+ t(rep(1, dim)) %*% -log(factorial(X_new[,j])) 
+  # Step 4: caluclate the mean 
+  mean_X_new[,loop] = rowMeans(X_new)
+    if (loop>1){
+    report[loop] = mean(X_new)
   }
-  log_likelihood_values[loop] = sum(log_likelihood_samples)
-  print(log_likelihood_values[loop])
-  log_likelihood_variance[loop] = var(log_likelihood_samples)
+  #log_likelihood_samples = numeric(n_samples)
+  
+  #for(j in 1:n_samples){
+  #  log_likelihood_samples[j] = t(eta_0) %*% X_new[,j]+ 0.5 * t(X_new[,j]) %*% theta %*% X_new[,j]+ t(rep(1, dim)) %*% -log(factorial(X_new[,j])) 
+  #}
+  #log_likelihood_values[loop] = sum(log_likelihood_samples)
+  #print(log_likelihood_values[loop])
+  #log_likelihood_variance[loop] = var(log_likelihood_samples)
 
 }
 
 
-pdf(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/likelihood.pdf")
-plot(log_likelihood_values, type = "l")  
-plot(log_likelihood_variance, type = "l") 
-plot(density(X_new[10, 250:1000]))
+#pdf(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/likelihood.pdf")
+#plot(log_likelihood_values, type = "l")  
+#plot(log_likelihood_variance, type = "l") 
+#plot(density(X_new[10, 250:1000]))
+#dev.off()
+
+pdf(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/mean_pPGM.pdf")
+#das evtl als ggplot schreiben für alle variablen
+plot(mean_X_new[1,], type = "l")
+plot(mean_X_new[2,], type = "l")
+plot(mean_X_new[3,], type = "l")
+plot(mean_X_new[4,], type = "l")
+plot(mean_X_new[5,], type = "l")
+plot(mean_X_new[6,], type = "l")
+plot(report, type = "l")
 dev.off()
 
-
-mean(X_new[1,])
-mean(X_new[2,])
-mean(X_new[3,])
-mean(X_new[4,])
-mean(X_new[5,])
 
 exp = matrix(NA, nrow = dim, ncol = n_samples)
 sample_exp = numeric(dim)
@@ -147,4 +162,3 @@ for (i in 1:dim){
 
 final_exp - sample_exp
 
- #exp(eta_0 + theta %*% X_new[,4])
