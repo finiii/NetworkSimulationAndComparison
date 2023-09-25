@@ -2,14 +2,14 @@
 rm(list = ls())
 
 #set the parameter values
-eta_0 = rep(3, 10)
+eta_0 = rep(1, 10)
 #eta_1 = eta_0
 
 # set the dimension/length of X
 dim = 10
 
 #  set the number of samples
-n_samples = 2000
+n_samples = 3000
 
 # Create a sample correlation matrix with negative values
 # Generate a random correlation matrix with negative values
@@ -18,7 +18,7 @@ theta <- matrix(0, nrow = dim, ncol = dim)
 # Fill the upper triangular part with random negative values
 for (i in 1:(dim - 1)) {
   for (j in (i + 1):dim) {
-    theta[i, j] <- runif(1, -0.5, -0)  # Random value between -1 and 0
+    theta[i, j] <- runif(1, -0.3, 0)  # Random value
   }
 }
 
@@ -36,8 +36,6 @@ diag(theta) <- 0
 eta_y = eta_0
 
 # Step 2: generate X_0 from the independent model with eta_y
-# die sind independent also kann ich die einzeln generieren, muss nur noch genau schauen wie
-# ich bin mir gar nicht sicher ob das stimmt
 
 # write an empty matrix for the samples
 X_0 = matrix(NA, nrow = dim, ncol = n_samples)
@@ -49,41 +47,30 @@ for (i in 1:dim){
     X_0[i,] = rpois(n_samples, exp(eta_i))
 
 }
-X <- X_0
-#write a loop that does the following code 10 times (ich brauche anderes stopping criterion)
-#hier dran arbeite ich gerade!!!
-iterations = 100
-likelihood_values = numeric(iterations)
-eta_minus_i_minus_1 = matrix(eta_0, nrow = dim, ncol = n_samples)
+
+# iterations
+iterations = 1000
+log_likelihood_values = numeric(iterations)
+eta_minus_i_old = matrix(eta_0, nrow = dim, ncol = n_samples)
 eta_minus_i= matrix(NA, nrow = dim, ncol = n_samples)
-X_old = X
+X_old = X_0
 X_new = matrix(NA, nrow = dim, ncol = n_samples)
 for(loop in 1:iterations){
+
 #step 3
  #a) compute the conditional parameters
- j =1
 for(j in 1:n_samples){
   for (i in 1:dim){
-    #i-th row of theta after remo#ving the i-th column from theta
+    #i-th row of theta after removing the i-th column from theta
     theta_minus_i = theta[i,-i]
-    eta_minus_i[i,j] = eta_minus_i_minus_1[i,j] + theta_minus_i %*% X_old[-i,j]
+    eta_minus_i[i,j] = eta_minus_i_old[i,j] + theta_minus_i %*% X_old[-i,j]
     X_new[i,j] = rpois(1, exp(eta_minus_i[i,j]))
 }
 }
-#X_new[,1]
-#eta_minus_i[,1]
-eta_minus_i_minus_1 = eta_minus_i
+
+#update X_old and eta_minus_i_minus_1
+#eta_minus_i_old = eta_minus_i
 X_old = X_new
-#print(X_new)
-#print(eta_minus_i_minus_1)
- #b) compute X_1
- #X = matrix(NA, nrow = dim, ncol = n_samples)
- #how do I generate from this distribution?
- # for(j in 1:n_samples){
- #   for (i in 1:dim){
-  #    X[i,j] = rpois(1, exp(eta_minus_i_minus_1[i,j]))
-  #  }
- # }
 
 
 #c) update
@@ -91,17 +78,16 @@ X_old = X_new
 
 # Step 4: caluclate the likelihood
 log_likelihood_samples = numeric(n_samples)
+
 #ich muss das hier mit dem ziel-eta berechnen, also mit eta_0!!!
 for(j in 1:n_samples){
   log_likelihood_samples[j] = t(eta_0) %*% X_new[,j]+ 0.5 * t(X_new[,j]) %*% theta %*% X_new[,j]+ t(rep(1, dim)) %*% -log(factorial(X_new[,j])) 
 }
 likelihood = sum(log_likelihood_samples)
-print(likelihood)
-likelihood_values[loop] = likelihood
+#print(likelihood)
+log_likelihood_values[loop] = likelihood
 }
 
 pdf(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/likelihood.pdf")
-plot(likelihood_values)
+plot(log_likelihood_values)
 dev.off()
-
-#likelihood ändert sich nicht, habe ich einen Fehler im Code????
