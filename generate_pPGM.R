@@ -7,25 +7,34 @@ library("igraph")
 library("ggplot2")
 library("dplyr")
 #set.seed(1234)
+# set the dimension/length of X (p int he thesis)
+dim = 30
+
+
 #set the parameter values
-eta_0 = rep(3, 10)
+eta_0 = c(1, 1, 1)#rep(1, 3)
 #eta_0 = rep(1, 10) *runif(10, 0, 1)
 #eta_1 = eta_0
 
-# set the dimension/length of X
-dim = 10
+
+
 
 #  set the number of samples
-n_samples = 5000
+n_samples = 1000
 
 # Create a sample correlation matrix with negative values
 # Generate a random correlation matrix with negative values
 theta <- matrix(0, nrow = dim, ncol = dim)
 
+#swet the upper and the lower bound for the uniform distribution the edge weights are drawn from
+lower_bound = -100
+upper_bound = -50
+
+
 # Fill the upper triangular part with random negative values
 for (i in 1:(dim - 1)) {
   for (j in (i + 1):dim) {
-    theta[i, j] <- runif(1, -1, 0)  # Random value
+    theta[i, j] <- runif(1, lower_bound, upper_bound)  # Random value
     theta[ j,i]=theta[i, j]
   }
 }
@@ -48,9 +57,7 @@ diag(theta) <- 0
 #adj_matrix <- as.matrix(get.adjacency(adj_matrix.ig))
 
 
-#swet the upper and the lower bound for the uniform distribution the edge weights are drawn from
-#lower_bound = -0.5
-#upper_bound = 0
+
 
 #simulates a weighted_adj matrix, this is a weighted version of the adjecency matrix
 #weighted_adj = matrix(runif(dim^2, lower_bound, upper_bound), dim, dim) * adj_matrix
@@ -84,7 +91,7 @@ for (i in 1:dim){
 }
 
 # iterations
-iterations = 1000
+iterations = 10000
 log_likelihood_values = numeric(iterations)
 eta_minus_i_old = matrix(eta_0, nrow = dim, ncol = n_samples)
 eta_minus_i= matrix(NA, nrow = dim, ncol = n_samples)
@@ -162,3 +169,13 @@ for (i in 1:dim){
 
 final_exp - sample_exp
 
+mean(X_new[1,])
+mean(X_new[2,])
+mean(X_new[3,])
+
+mean(X_new)
+log(mean(X_new))
+mean(theta)
+theta
+
+save(X_new, file = paste0("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations_Poisson/pPGM_simulation_dim", dim, "_lower_bound_", lower_bound, "_upper_bound_", upper_bound, "_n_samples_", n_samples, "_iterations_", iterations,".RData"))

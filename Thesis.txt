@@ -1,0 +1,41 @@
+
+Having established the fundamental concepts of graph theory, we proceed to establish the connection between conditional independence structures and graphs through the introduction of Markov properties. In graphical modeling, the primary focus centers on constructing models that accurately represent conditional independence relationships.
+
+Referring mainly to \cite{lauritzen1996graphical}, there are three different Markov properties on undirected graphs.
+To introduce them, we consider an undirected graph $G = (V,E)$, with associated  data $X = (X_1, \dots, X_p)$ and its joint distribution $P^X$. Since the vertices of the graph correspond to the components of the data $X$, we write the vertex set $V = (X_1, \dots, X_p)$.
+
+%For this section we mainly refer to \cite{maathuis2018handbook}, Chapter 8.5. W
+The weakest of the Markov properties is the \textit{pairwise Markov property}.
+We say that the joint distribution $P^X$ satisfies the \textbf{pairwise Markov property} (P)  relative to $G$, if 
+\begin{equation}
+    \label{pairwiseMarkovProperty}
+    \forall  \{X_i,X_j\} \notin E, X_i \neq X_j: X_i \bigCI X_j \mid X_{-i,-j} 
+\end{equation}
+where $X_{-i,-j}$ denotes the set of components of $X$ that does not include $X_i$ and $X_j$. This means that for every two distinct variables that are not connected in the graph, they are conditionally independent given all other variables.
+
+The joint distribution $P^X$ satisfies the \textbf{local Markov property} (L) relative to $G$, if
+\begin{equation}
+    \label{localMarkovProperty}
+    \forall X_i \bigCI V \setminus cl(X_i) \mid bd(X_i)
+\end{equation}
+Intuitively, the local Markov property says that, given a variable $X_i$ in the model, if we know all the boundary variables, then all the other variables do not provide any additional information about $X_i$.
+
+Furthermore, the distribution $P^X$ satisfies the \textbf{global Markov property} (G) relative to $G$, if 
+\begin{equation}
+    \label{globalMarkovProperty}
+    A \bigCI B 	 \mid C 
+\end{equation}
+for all disjoint subsets $A, B, C \subseteq V$, $A, B \neq \emptyset$ such that $C$ separates $A$ and $B$ in $G$. 
+For the three Markov properties, in general the global Markov property \eqref{globalMarkovProperty} implies the local Markov property \eqref{localMarkovProperty} and the local Markov property implies the pairwise Markov property \eqref{pairwiseMarkovProperty}:
+\begin{proposition}
+For any graph and for any probability distribution $P^X$ is holds that 
+$(G) \Rightarrow (L) \Rightarrow (P)$
+\end{proposition}
+\begin{proof}
+$(G) \Rightarrow (L)$ holds because $bd(X_i)$ separates $X_i$ from $V \setminus cl(X_i)$ in $G$. \newline
+For $(G) \Rightarrow (L)$ choose $X_j$ to be non adjacent to $X_i$, then it must hold that $X_j \in V \setminus cl(X_i)$. We have $bd(X_i) \cup ((V\setdiff cl(X_i))\setdiff X_j) = V \setdiff (X_i, X_j)$. Using the Weak union property of the conditional independence \eqref{weakunion}, it follows from (L) that $X_i \bigCI V\setdiff cl(X_i) \mid V \setdiff (X_i, X_j)$. Using the Decomposition property \eqref{decomposition}, it holds that $X_i \bigCI X_j \mid V \setdiff (X_i, X_j)$, which corresponds to the pairwise Markov property.
+\end{proof}
+
+In fact it can even be shown that under certain conditions, all three properties are equivalent. This was shown in 
+
+now I want to write about 
