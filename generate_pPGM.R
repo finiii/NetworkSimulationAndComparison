@@ -181,8 +181,34 @@ save(X_new, file = paste0("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndCompari
 
 ###gelman-rubin statistics
 
-pdf(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/chain_test.pdf")
-plot(X_1_simulations[1,], type = "l")
+pdf(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/chain_test_x1.pdf")
+
+par(mfrow=c(2,2))
+for (i in 1:4)
+plot(X_1_simulations[i, 1:iterations], type="l",
+xlab=i, ylab=bquote(X_1_simulations))
+par(mfrow=c(1,1)) #restore default
+
+par(mfrow=c(2,2))
+for (i in 1:4)
+acf(X_1_simulations[i, 1:iterations], main = i)
+par(mfrow=c(1,1)) #restore default
+
+dev.off()
+
+pdf(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/chain_test_x2.pdf")
+
+par(mfrow=c(2,2))
+for (i in 1:4)
+plot(X_2_simulations[i, 1:iterations], type="l",
+xlab=i, ylab=bquote(X_2_simulations))
+par(mfrow=c(1,1)) #restore default
+
+par(mfrow=c(2,2))
+for (i in 1:4)
+acf(X_2_simulations[i, 1:iterations], main = i)
+par(mfrow=c(1,1)) #restore default
+
 dev.off()
 
 #calculate the test statistic (mean)
@@ -217,6 +243,8 @@ for (i in 1:4)
 plot(psi[i, 1:iterations], type="l",
 xlab=i, ylab=bquote(psi))
 par(mfrow=c(1,1)) #restore default
+
+
 
 #plot the sequence of R-hat statistics
 rhat <- rep(0, iterations)
