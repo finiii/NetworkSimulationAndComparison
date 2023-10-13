@@ -12,7 +12,7 @@ dim = 30
 
 
 #set the parameter values
-eta_0 = c(1, 1, 1)#rep(1, 3)
+eta_0 = rep(1, 30)
 #eta_0 = rep(1, 10) *runif(10, 0, 1)
 #eta_1 = eta_0
 
@@ -20,15 +20,15 @@ eta_0 = c(1, 1, 1)#rep(1, 3)
 
 
 #  set the number of samples
-n_samples = 1000
+n_samples = 4
 
 # Create a sample correlation matrix with negative values
 # Generate a random correlation matrix with negative values
 theta <- matrix(0, nrow = dim, ncol = dim)
 
 #swet the upper and the lower bound for the uniform distribution the edge weights are drawn from
-lower_bound = -100
-upper_bound = -50
+lower_bound = -1
+upper_bound = 0
 
 
 # Fill the upper triangular part with random negative values
@@ -91,7 +91,7 @@ for (i in 1:dim){
 }
 
 # iterations
-iterations = 10000
+iterations = 1000
 log_likelihood_values = numeric(iterations)
 eta_minus_i_old = matrix(eta_0, nrow = dim, ncol = n_samples)
 eta_minus_i= matrix(NA, nrow = dim, ncol = n_samples)
@@ -100,6 +100,10 @@ X_old = X_0
 X_new = X_0
 mean_X_new = matrix(NA, nrow = dim, ncol = iterations)
 report = numeric(iterations)
+for (i in 1:dim){
+  name <- paste0("X_", i, "_simulations")
+  assign(name, matrix(X_0[i,], nrow = n_samples, ncol = 1))
+}
 for(loop in 1:iterations){
   
   #step 3
@@ -125,6 +129,12 @@ for(loop in 1:iterations){
   mean_X_new[,loop] = rowMeans(X_new)
     if (loop>1){
     report[loop] = mean(X_new)
+
+    #save the simulated values
+    for(i in 1:dim){
+      name <- paste0("X_", i, "_simulations")
+      assign(name, cbind(get(name), X_new[i,]))
+    }
   }
   #log_likelihood_samples = numeric(n_samples)
   
@@ -143,15 +153,13 @@ for(loop in 1:iterations){
 #plot(log_likelihood_variance, type = "l") 
 #plot(density(X_new[10, 250:1000]))
 #dev.off()
+picture_file  = paste0("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations_Poisson/pPGM_simulation_dim", dim, "_lower_bound_", lower_bound, "_upper_bound_", upper_bound, "_n_samples_", n_samples, "_iterations_", iterations,".pdf")
 
-pdf(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/mean_pPGM.pdf")
+pdf(file = picture_file)
 #das evtl als ggplot schreiben für alle variablen
-plot(mean_X_new[1,], type = "l")
-plot(mean_X_new[2,], type = "l")
-plot(mean_X_new[3,], type = "l")
-plot(mean_X_new[4,], type = "l")
-plot(mean_X_new[5,], type = "l")
-plot(mean_X_new[6,], type = "l")
+for(i in 1:dim){
+  plot(mean_X_new[i,], type = "l")
+}
 plot(report, type = "l")
 dev.off()
 
@@ -167,15 +175,80 @@ for (i in 1:dim){
   sample_exp[i] = mean(X_new[i,])
 }
 
-final_exp - sample_exp
-
-mean(X_new[1,])
-mean(X_new[2,])
-mean(X_new[3,])
-
-mean(X_new)
-log(mean(X_new))
-mean(theta)
-theta
 
 save(X_new, file = paste0("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations_Poisson/pPGM_simulation_dim", dim, "_lower_bound_", lower_bound, "_upper_bound_", upper_bound, "_n_samples_", n_samples, "_iterations_", iterations,".RData"))
+
+
+###gelman-rubin statistics
+
+pdf(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/chain_test.pdf")
+plot(X_1_simulations[1,], type = "l")
+dev.off()
+
+#calculate the test statistic (mean)
+psi <- t(apply(X_1_simulations, 1, cumsum))
+for (i in 1:nrow(psi))
+psi[i,] <- psi[i,] / (1:ncol(psi))
+
+Gelman.Rubin <- function(psi) {
+# psi[i,j] is the statistic psi(X[i,1:j])
+# for chain in i-th row of X
+psi <- as.matrix(psi)
+n <- ncol(psi)
+k <- nrow(psi)
+psi.means <- rowMeans(psi) #row means
+B <- n * var(psi.means) #between variance est.
+psi.w <- apply(psi, 1, "var") #within variances
+W <- mean(psi.w) #within est.
+v.hat <- W*(n-1)/n + (B/n) #upper variance est.
+r.hat <- v.hat / W #G-R statistic
+return(r.hat)
+}
+
+print(Gelman.Rubin(psi))
+
+
+
+
+pdf(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/chain_test.pdf")
+#plot psi for the four chains
+par(mfrow=c(2,2))
+for (i in 1:4)
+plot(psi[i, 1:iterations], type="l",
+xlab=i, ylab=bquote(psi))
+par(mfrow=c(1,1)) #restore default
+
+#plot the sequence of R-hat statistics
+rhat <- rep(0, iterations)
+for (j in 1:iterations)
+rhat[j] <- Gelman.Rubin(psi[,1:j])
+plot(rhat[1:iterations], type="l", xlab="", ylab="R")
+abline(h=1.1, lty=2)
+dev.off()
+
+
+
+
+
+#Gelman Rubin on the mean
+mean_X_new
+
+Gelman.Rubin(mean_X_new)
+
+pdf(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/chain_test_mean.pdf")
+#plot mean_X_new for the four chains
+par(mfrow=c(2,2))
+for (i in 1:4)
+plot(mean_X_new[i, 1:iterations], type="l",
+xlab=i, ylab=bquote(mean_X_new))
+par(mfrow=c(1,1)) #restore default
+
+#plot the sequence of R-hat statistics
+rhat <- rep(0, iterations)
+for (j in 1:iterations)
+rhat[j] <- Gelman.Rubin(mean_X_new[,1:j])
+plot(rhat[1:iterations], type="l", xlab="", ylab="R")
+abline(h=1.1, lty=2)
+dev.off()
+
+
