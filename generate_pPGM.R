@@ -12,10 +12,10 @@ library("dplyr")
 
 
 # set the dimension/length of X (p int he thesis)
-dim = 30
+dim = 10
 
 #set the parameter values
-eta_0 = rep(1, 30)
+eta_0 = rep(1, dim)
 #eta_0 = rep(1, 10) *runif(10, 0, 1)
 #eta_1 = eta_0
 
@@ -26,8 +26,8 @@ n_samples = 4
 theta <- matrix(0, nrow = dim, ncol = dim)
 
 #swet the upper and the lower bound for the uniform distribution the edge weights are drawn from
-lower_bound = -1
-upper_bound = 0
+lower_bound = -10
+upper_bound = -5
 
 # Fill the upper triangular part with random negative values
 for (i in 1:(dim - 1)) {
@@ -84,7 +84,8 @@ for (i in 1:dim){
 }
 
 # iterations
-iterations = 100  #N
+iterations = 1000  #N
+burn_in = 200 # burn in length
 log_likelihood_values = numeric(iterations)
 eta_minus_i_old = matrix(eta_0, nrow = dim, ncol = n_samples)
 eta_minus_i= matrix(NA, nrow = dim, ncol = n_samples)
@@ -92,6 +93,7 @@ log_likelihood_variance = numeric(iterations)
 X_old = X_0
 X_new = X_0
 mean_X_new = matrix(NA, nrow = dim, ncol = iterations)
+mean_per_chain = matrix(NA, nrow = n_samples, ncol = iterations)
 report = numeric(iterations)
 for (i in 1:dim){
   name <- paste0("X_", i, "_simulations")
@@ -115,10 +117,13 @@ for(loop in 1:iterations){
 
   }
   
-  #c) update
+
   
   # Step 4: caluclate the mean 
-  mean_X_new[,loop] = rowMeans(X_new)
+    mean_X_new[,loop] = rowMeans(X_new)
+
+    mean_per_chain[,loop] = colMeans(X_new)
+
     if (loop>1){
     report[loop] = mean(X_new)}
 
@@ -135,7 +140,16 @@ for(loop in 1:iterations){
 result = list(X_new = X_new, mean_X_new = mean_X_new)
 save(result, file = paste0("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations_Poisson/pPGM_simulation_dim", dim, "_lower_bound_", lower_bound, "_upper_bound_", upper_bound, "_n_samples_", n_samples, "_iterations_", iterations,".RData"))
 
+  #delete the samples from the burn in phase
 
+  X_new = X_new[, -c(1:burn_in)]
+  mean_X_new = mean_X_new[, -c(1:burn_in)]
+  mean_per_chain = mean_per_chain[, -c(1:burn_in)]
+  for(i in 1:dim){
+      name <- paste0("X_", i, "_simulations")
+      simulated_data <- get(name)
+      assign(name, simulated_data[, -c(1:burn_in)])
+  }
 
 #hier plotte ich alle running means der variablen über die chains 
 #also x.B. mean_X_new[1,] ist der running mean der ersten variable über die 4 chains
@@ -149,10 +163,24 @@ plot(report, type = "l")
 dev.off()
 
 
+#density plots
+pdf(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/density_plots.pdf")
+for(i in 1:dim){
+  name <- paste0("X_", i, "_simulations")
+  simulated_data <- as_tibble(get(name))
+  #but which iterations do we actually take??
+  simulated_data <- mutate(simulated_data, chain = 1:n_samples)
+  simulated_data <- tidyr::pivot_longer(simulated_data, cols = -chain, names_to = "variable", values_to = "value")
+  
+  plot <- ggplot2::ggplot(simulated_data, aes(x= value, fill = as.factor(chain))) +
+    geom_density(alpha = 0.5) + ggtitle(paste0("Density plot of X_", i, " over the chains"))
+  
 
+  print(plot)
+}
+dev.off()
 
-
-#hier einen plot mit allen acf funktionen schreiben!!
+#plot the acf functions
 pdf(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/acf_plots.pdf")
     for(i in 1:dim){
       name <- paste0("X_", i, "_simulations")
@@ -168,77 +196,82 @@ dev.off()
 
 ####gelman-rubin statistics
 #calculate the test statistic (mean)
-psi <- t(apply(X_1_simulations, 1, cumsum))
-for (i in 1:nrow(psi)){
-psi[i,] <- psi[i,] / (1:ncol(psi))
+#test it here for X_1
+phi <- t(apply(X_1_simulations, 1, cumsum))
+for (i in 1:nrow(phi)){
+phi[i,] <- phi[i,] / (1:ncol(phi))
 }
 
-Gelman.Rubin <- function(psi) {
-# psi[i,j] is the statistic psi(X[i,1:j])
-# for chain in i-th row of X
-psi <- as.matrix(psi)
-n <- ncol(psi)
-k <- nrow(psi)
-psi.means <- rowMeans(psi) #row means
-B <- n * var(psi.means) #between variance est.
-psi.w <- apply(psi, 1, "var") #within variances
-W <- mean(psi.w) #within est.
-v.hat <- W*(n-1)/n + (B/n) #upper variance est.
-r.hat <- v.hat / W #G-R statistic
-return(r.hat)
+Gelman.Rubin <- function(phi) {
+# phi[i,j] is the statistic phi(X[i,1:j])
+# for i-th chain and up to j-th iteration
+phi <- as.matrix(phi)
+n <- ncol(phi) # this is the number of iterations
+m <- nrow(phi) # this is the number of chains
+B <- n * var(rowMeans(phi)) #between variance estimate
+W <- 0 #Initialize W, the within variance estimate
+# Calculate row-wise means
+mean_phi_i <- rowMeans(phi)
+# Calculate the sum of squared differences
+for (i in 1:m) {
+  for (j in 1:n) {
+    W <- W + (phi[i, j] - mean_phi_i[i])^2
+  }
 }
 
-print(Gelman.Rubin(psi))
+# Divide by (m * (n - 1))
+W <- W / (m * (n - 1))
+v_hat <- W*(n-1)/n + (B/n) #upper variance estimate
+R_hat <- sqrt(v_hat / W) #Gelman-Rubin statistic
+return(R_hat)
+}
 
-
-var(rowMeans(mean_X_new_mod))
-mean(apply(mean_X_new_mod, 1, var))
-
-pdf(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/chain_test.pdf")
-#plot psi for the four chains
-par(mfrow=c(2,2))
-for (i in 1:4)
-plot(psi[i, 1:iterations], type="l",
-xlab=i, ylab=bquote(psi))
-par(mfrow=c(1,1)) #restore default
-
+print(Gelman.Rubin(phi))
 
 
 #plot the sequence of R-hat statistics
-rhat <- rep(0, iterations)
-for (j in 1:iterations)
-rhat[j] <- Gelman.Rubin(psi[,1:j])
-plot(rhat[1:iterations], type="l", xlab="", ylab="R")
-abline(h=1.1, lty=2)
+pdf(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/gelman_rubin_statistic.pdf")
+for(i in 1:dim){
+      name <- paste0("X_", i, "_simulations")
+      simulated_data <- get(name)
+      psi <- t(apply(simulated_data, 1, cumsum))
+      for (i in 1:nrow(psi)){
+      psi[i,] <- psi[i,] / (1:ncol(psi))
+      }
+      rhat <- rep(0, (iterations-burn_in))
+      for (j in 1:(iterations-burn_in)){
+      rhat[j] <- Gelman.Rubin(psi[,1:j])
+      }
+      plot(rhat, type="l", xlab="", ylab="R")
+      abline(h=1.1, lty=2)}
 dev.off()
 
 
 
 
 
-#Gelman Rubin on the mean -- hier ist die Frage ob ich das so machen kann oder ob ich da wieder was ändern muss wie bei X_1
-mean_X_new
+#Gelman Rubin on the mean
 
-Gelman.Rubin(mean_X_new)
+mean_per_chain_mod <- t(apply(mean_per_chain, 1, cumsum))
+for (i in 1:nrow(mean_per_chain_mod)){
+mean_per_chain_mod[i,] <- mean_per_chain_mod[i,] / (1:ncol(mean_per_chain_mod))}
+Gelman.Rubin(mean_per_chain_mod)
 
-mean_X_new_mod <- t(apply(mean_X_new, 1, cumsum))
-for (i in 1:nrow(mean_X_new_mod)){
-mean_X_new_mod[i,] <- mean_X_new_mod[i,] / (1:ncol(mean_X_new_mod))}
-Gelman.Rubin(mean_X_new_mod)
-
-pdf(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/chain_test_mean.pdf")
+pdf(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/gelman_rubin_mean.pdf")
 #plot mean_X_new for the four chains
 par(mfrow=c(2,2))
 for (i in 1:4)
-plot(mean_X_new[i, 1:iterations], type="l",
+plot(mean_per_chain[i, ], type="l",
 xlab=i, ylab=bquote(mean_X_new))
 par(mfrow=c(1,1)) #restore default
 
 #plot the sequence of R-hat statistics
-rhat <- rep(0, iterations)
-for (j in 1:iterations)
-rhat[j] <- Gelman.Rubin(mean_X_new[,1:j])
-plot(rhat[1:iterations], type="l", xlab="", ylab="R")
+rhat <- rep(0, iterations-burn_in)
+for (j in 1:(iterations-burn_in)){
+
+rhat[j] <- Gelman.Rubin(mean_per_chain_mod[,1:j])
+}
+plot(rhat, type="l", xlab="", ylab="R hat")
 abline(h=1.1, lty=2)
 dev.off()
 
