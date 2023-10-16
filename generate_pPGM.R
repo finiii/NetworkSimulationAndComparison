@@ -1,35 +1,33 @@
 rm(list = ls())
 
+
+#load the required packages
 library("Matrix")
 library("matrixcalc")
 library("MASS")
 library("igraph")
 library("ggplot2")
 library("dplyr")
-#set.seed(1234)
+
+
+
 # set the dimension/length of X (p int he thesis)
 dim = 30
-
 
 #set the parameter values
 eta_0 = rep(1, 30)
 #eta_0 = rep(1, 10) *runif(10, 0, 1)
 #eta_1 = eta_0
 
-
-
-
-#  set the number of samples
+#  set the number of chains
 n_samples = 4
 
-# Create a sample correlation matrix with negative values
-# Generate a random correlation matrix with negative values
+# Create a empty correlation matrix with negative values
 theta <- matrix(0, nrow = dim, ncol = dim)
 
 #swet the upper and the lower bound for the uniform distribution the edge weights are drawn from
 lower_bound = -1
 upper_bound = 0
-
 
 # Fill the upper triangular part with random negative values
 for (i in 1:(dim - 1)) {
@@ -56,9 +54,6 @@ diag(theta) <- 0
 #get adjacency matrix
 #adj_matrix <- as.matrix(get.adjacency(adj_matrix.ig))
 
-
-
-
 #simulates a weighted_adj matrix, this is a weighted version of the adjecency matrix
 #weighted_adj = matrix(runif(dim^2, lower_bound, upper_bound), dim, dim) * adj_matrix
 
@@ -66,9 +61,6 @@ diag(theta) <- 0
 #diag(weighted_adj) = 0
 #theta = weighted_adj
 #theta = as.matrix(forceSymmetric(theta))
-
-
-
 
 
 
@@ -83,6 +75,7 @@ eta_y = eta_0
 # write an empty matrix for the samples
 X_0 = matrix(NA, nrow = dim, ncol = n_samples)
 
+#simulate the starting values for the samples
 for (i in 1:dim){
   eta_i = eta_y[i]
   theta_ii =  0 #theta[i,i], we have theta_ii = 0 from the def of the model
@@ -91,7 +84,7 @@ for (i in 1:dim){
 }
 
 # iterations
-iterations = 1000
+iterations = 100  #N
 log_likelihood_values = numeric(iterations)
 eta_minus_i_old = matrix(eta_0, nrow = dim, ncol = n_samples)
 eta_minus_i= matrix(NA, nrow = dim, ncol = n_samples)
@@ -104,6 +97,8 @@ for (i in 1:dim){
   name <- paste0("X_", i, "_simulations")
   assign(name, matrix(X_0[i,], nrow = n_samples, ncol = 1))
 }
+
+#here the gibbs sampling starts
 for(loop in 1:iterations){
   
   #step 3
@@ -119,16 +114,14 @@ for(loop in 1:iterations){
 
 
   }
-  #update X_old and eta_minus_i_minus_1
-  #eta_minus_i_old = eta_minus_i
-  #X_old = X_new
   
   #c) update
   
   # Step 4: caluclate the mean 
   mean_X_new[,loop] = rowMeans(X_new)
     if (loop>1){
-    report[loop] = mean(X_new)
+    report[loop] = mean(X_new)}
+
 
     #save the simulated values
     for(i in 1:dim){
@@ -136,27 +129,19 @@ for(loop in 1:iterations){
       assign(name, cbind(get(name), X_new[i,]))
     }
   }
-  #log_likelihood_samples = numeric(n_samples)
-  
-  #for(j in 1:n_samples){
-  #  log_likelihood_samples[j] = t(eta_0) %*% X_new[,j]+ 0.5 * t(X_new[,j]) %*% theta %*% X_new[,j]+ t(rep(1, dim)) %*% -log(factorial(X_new[,j])) 
-  #}
-  #log_likelihood_values[loop] = sum(log_likelihood_samples)
-  #print(log_likelihood_values[loop])
-  #log_likelihood_variance[loop] = var(log_likelihood_samples)
-
-}
 
 
-#pdf(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/likelihood.pdf")
-#plot(log_likelihood_values, type = "l")  
-#plot(log_likelihood_variance, type = "l") 
-#plot(density(X_new[10, 250:1000]))
-#dev.off()
+#save the results
+result = list(X_new = X_new, mean_X_new = mean_X_new)
+save(result, file = paste0("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations_Poisson/pPGM_simulation_dim", dim, "_lower_bound_", lower_bound, "_upper_bound_", upper_bound, "_n_samples_", n_samples, "_iterations_", iterations,".RData"))
+
+
+
+#hier plotte ich alle running means der variablen über die chains 
+#also x.B. mean_X_new[1,] ist der running mean der ersten variable über die 4 chains
 picture_file  = paste0("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations_Poisson/pPGM_simulation_dim", dim, "_lower_bound_", lower_bound, "_upper_bound_", upper_bound, "_n_samples_", n_samples, "_iterations_", iterations,".pdf")
 
 pdf(file = picture_file)
-#das evtl als ggplot schreiben für alle variablen
 for(i in 1:dim){
   plot(mean_X_new[i,], type = "l")
 }
@@ -164,57 +149,29 @@ plot(report, type = "l")
 dev.off()
 
 
-exp = matrix(NA, nrow = dim, ncol = n_samples)
-sample_exp = numeric(dim)
-final_exp = numeric(dim)
-for (i in 1:dim){
-  for(j in 1:n_samples){
-    exp[i,j] = exp(eta_0[i] + theta[i,] %*% X_new[,j])
-  }
-  final_exp[i] = mean(exp[i,])
-  sample_exp[i] = mean(X_new[i,])
-}
 
 
-save(X_new, file = paste0("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations_Poisson/pPGM_simulation_dim", dim, "_lower_bound_", lower_bound, "_upper_bound_", upper_bound, "_n_samples_", n_samples, "_iterations_", iterations,".RData"))
 
-
-###gelman-rubin statistics
-
-pdf(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/chain_test_x1.pdf")
-
-par(mfrow=c(2,2))
-for (i in 1:4)
-plot(X_1_simulations[i, 1:iterations], type="l",
-xlab=i, ylab=bquote(X_1_simulations))
-par(mfrow=c(1,1)) #restore default
-
-par(mfrow=c(2,2))
-for (i in 1:4)
-acf(X_1_simulations[i, 1:iterations], main = i)
-par(mfrow=c(1,1)) #restore default
-
+#hier einen plot mit allen acf funktionen schreiben!!
+pdf(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/acf_plots.pdf")
+    for(i in 1:dim){
+      name <- paste0("X_", i, "_simulations")
+      simulated_data <- get(name)
+      par(mfrow=c(2,2))
+      for (j in 1:4)  {
+        acf(simulated_data[j, ], main = paste0("X_", i, " chain ",j))
+      }
+      par(mfrow=c(1,1)) #restore default
+    }
 dev.off()
 
-pdf(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/chain_test_x2.pdf")
 
-par(mfrow=c(2,2))
-for (i in 1:4)
-plot(X_2_simulations[i, 1:iterations], type="l",
-xlab=i, ylab=bquote(X_2_simulations))
-par(mfrow=c(1,1)) #restore default
-
-par(mfrow=c(2,2))
-for (i in 1:4)
-acf(X_2_simulations[i, 1:iterations], main = i)
-par(mfrow=c(1,1)) #restore default
-
-dev.off()
-
+####gelman-rubin statistics
 #calculate the test statistic (mean)
 psi <- t(apply(X_1_simulations, 1, cumsum))
-for (i in 1:nrow(psi))
+for (i in 1:nrow(psi)){
 psi[i,] <- psi[i,] / (1:ncol(psi))
+}
 
 Gelman.Rubin <- function(psi) {
 # psi[i,j] is the statistic psi(X[i,1:j])
@@ -234,7 +191,8 @@ return(r.hat)
 print(Gelman.Rubin(psi))
 
 
-
+var(rowMeans(mean_X_new_mod))
+mean(apply(mean_X_new_mod, 1, var))
 
 pdf(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/chain_test.pdf")
 #plot psi for the four chains
@@ -258,10 +216,15 @@ dev.off()
 
 
 
-#Gelman Rubin on the mean
+#Gelman Rubin on the mean -- hier ist die Frage ob ich das so machen kann oder ob ich da wieder was ändern muss wie bei X_1
 mean_X_new
 
 Gelman.Rubin(mean_X_new)
+
+mean_X_new_mod <- t(apply(mean_X_new, 1, cumsum))
+for (i in 1:nrow(mean_X_new_mod)){
+mean_X_new_mod[i,] <- mean_X_new_mod[i,] / (1:ncol(mean_X_new_mod))}
+Gelman.Rubin(mean_X_new_mod)
 
 pdf(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/chain_test_mean.pdf")
 #plot mean_X_new for the four chains
