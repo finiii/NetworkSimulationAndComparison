@@ -26,8 +26,8 @@ n_samples = 4
 theta <- matrix(0, nrow = dim, ncol = dim)
 
 #swet the upper and the lower bound for the uniform distribution the edge weights are drawn from
-lower_bound = -10
-upper_bound = -5
+lower_bound = -1
+upper_bound = 0
 
 # Fill the upper triangular part with random negative values
 for (i in 1:(dim - 1)) {
@@ -84,7 +84,7 @@ for (i in 1:dim){
 }
 
 # iterations
-iterations = 1000  #N
+iterations = 5000  #N
 burn_in = 200 # burn in length
 log_likelihood_values = numeric(iterations)
 eta_minus_i_old = matrix(eta_0, nrow = dim, ncol = n_samples)
@@ -225,7 +225,6 @@ v_hat <- W*(n-1)/n + (B/n) #upper variance estimate
 R_hat <- sqrt(v_hat / W) #Gelman-Rubin statistic
 return(R_hat)
 }
-
 print(Gelman.Rubin(phi))
 
 
@@ -276,3 +275,26 @@ abline(h=1.1, lty=2)
 dev.off()
 
 
+###R hat with coda
+
+library(coda)
+#this needs to be done for every variable
+for (i in 1:dim){
+      name <- paste0("X_", i, "_simulations")
+      simulated_data <- get(name)
+      mcmc.list <- mcmc.list(as.mcmc(simulated_data[1,]), as.mcmc(simulated_data[2,]), as.mcmc(simulated_data[3,]) ,as.mcmc(simulated_data[4,]))
+      new_name <- paste0("mcmc.list.X", i)
+      assign(new_name, mcmc.list)
+}
+mcmc.list.X1 <- mcmc.list(as.mcmc(X_1_simulations[1,]), as.mcmc(X_1_simulations[2,]), as.mcmc(X_1_simulations[3,]) ,as.mcmc(X_1_simulations[4,]))
+gelman.diag(mcmc.list.X1)
+
+
+
+pdf(file = "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/gelman_rubin_coda.pdf")
+for(i in 1:dim){
+  mcmc.list <- paste0("mcmc.list.X", i)
+  mcmc.list <- get(mcmc.list)
+  gelman.plot(mcmc.list)
+}
+dev.off()
