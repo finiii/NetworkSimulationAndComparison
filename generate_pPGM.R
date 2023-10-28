@@ -14,7 +14,7 @@ library(coda)
 
 
 # set the dimension/length of X (p int he thesis)
-dim = 10
+dim = 50
 
 #set the parameter values
 eta_0 = rep(1, dim)
@@ -22,14 +22,14 @@ eta_0 = rep(1, dim)
 #eta_1 = eta_0
 
 #  set the number of chains
-n_samples = 4
+n_samples = 6
 
 # Create a empty correlation matrix with negative values
 theta <- matrix(0, nrow = dim, ncol = dim)
 
 #swet the upper and the lower bound for the uniform distribution the edge weights are drawn from
-lower_bound = -1
-upper_bound = -0
+lower_bound = -20
+upper_bound = -10
 
 # Fill the upper triangular part with random negative values
 for (i in 1:(dim - 1)) {
@@ -86,7 +86,7 @@ for (i in 1:dim){
 }
 
 # iterations
-iterations = 10000  #N
+iterations = 100000  #N
 burn_in = iterations/2 # burn in length
 log_likelihood_values = numeric(iterations)
 eta_minus_i_old = matrix(eta_0, nrow = dim, ncol = n_samples)
@@ -145,31 +145,25 @@ simulation_name <- paste0("pPGM_simulation_dim", dim, "_lower_bound_", lower_bou
 result = list(X_new = X_new, mean_X_new = mean_X_new)
 save(result, file = paste0("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations_Poisson/", simulation_name,".RData"))
 
-
 #I took this function from the coda package and changed it a bit
+#I think something is still off here since it does not coincide with the plots.....
 "gelman.preplot" <-
-  function (x, max.bins = 50, confidence = 0.95, bin.width = 1, autoburnin = TRUE) 
+  function (x, max.bins = 5000, confidence = 0.95, bin.width = 1, autoburnin = TRUE) 
 {
-  x_with_burnin <- x
-  if (autoburnin && start(x) < end(x)/2 ) 
-  x <- window(x, start = end(x)/2 + 1)
-  nbin <- floor((niter(x) - 50)/thin(x))
+
+  nbin <- min(floor((niter(x) - 50)/thin(x)),max.bins)
   binw <- min(floor((niter(x) - 50)/nbin), bin.width)
   last.iter <- c(seq(from = start(x) + 50 * thin(x), by = binw * 
                      thin(x), length = nbin), end(x))
-  #shrink <- array(dim = c(nbin + 1, nvar(x), 2))
-  shrink <- array(dim = c(niter(x_with_burnin), nvar(x), 2))
-  dimnames(shrink) <- list(1:niter(x_with_burnin), varnames(x),
+  shrink <- array(dim = c(nbin + 1, nvar(x), 2))
+  dimnames(shrink) <- list(last.iter, varnames(x),
                            c("median", paste(50 * (confidence + 1), "%",
                                              sep = ""))
                            )
   #the first entries correponding to the burn in should be zero! autobutnin = TRUE cuts half of the samples
-  for (j in 1:(floor((niter(x_with_burnin))/2))){
-      shrink[j, , ] <- NA
-  }
   for (i in 1:(nbin)) {
 
-    shrink[i+(floor((niter(x_with_burnin))/2)+1)+50, , ] <- gelman.diag(window(x, end = last.iter[i]),
+    shrink[i, , ] <- gelman.diag(window(x, end = last.iter[i]),
                                  multivariate = TRUE,
                                  autoburnin = TRUE)$psrf
   }
@@ -198,19 +192,19 @@ for (i in 1:dim){
   name <- paste0("X_", i, "_Rhat")
     mcmc.list <- paste0("mcmc.list.X", i)
     mcmc.list <- get(mcmc.list)
-    assign(name, as.vector(gelman.preplot(mcmc.list)$shrink[,1,1]))
+    assign(name, as.vector(gelman.preplot(mcmc.list, max.bins = 2000)$shrink[,1,1]))
+    print(name)
 }
 
-
-i = 1
 #build the Rhat convergence check
-#ich glaube hier ist noch irgendwas falsch weil die werte nicht mit den werten aus den plots übereinstimmen!!!
 convergence_check_Rhat <- function(limit = 1.1){
   non_converged_chains <- list()
   for (i in 1:dim){
     name <- paste0("X_", i, "_Rhat")
     Rhat <- get(name)
-      if (any(Rhat > limit,na.rm = TRUE)){
+    #I discard the first few Rhat values since they do not use as many values already
+    #I choose to look at the last thrid of R hat values that should be enough
+      if (any(Rhat[-c(1:(2*iterations/3))] > limit,na.rm = TRUE)){
         sum_bigger <- sum(Rhat > limit, na.rm = TRUE)
        message <- paste0("X_", i, " did not converge ", sum_bigger," Rhat values are not smaller than ", limit)
         non_converged_chains <- c(non_converged_chains, message)
@@ -234,7 +228,8 @@ convergence_check_acf <- function(burn_in, limit = 0.05){
     for (j in 1:n_samples){
       acf_values <- acf(simulated_data[j, -c(1:burn_in)], plot = FALSE)$acf
       if (any(acf_values[length(acf_values)] > limit)){
-              message <- paste0("X_", i, " chain ", j, " did not converge, the last acf value is ", acf_values[length(acf_values)], " and should be smaller than ", limit)
+        max_lag <- length(acf_values)
+              message <- paste0("X_", i, " chain ", j, " did not converge, the last acf value, lag ", max_lag, " is ", acf_values[length(acf_values)], " and should be smaller than ", limit)
         non_converged_chains <- c(non_converged_chains, message)
       }
     }
@@ -251,6 +246,8 @@ convergence_check_acf(burn_in)
 #diagnostic plots
 pdf(file = paste0("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/diagnostic_plots/", simulation_name,".pdf"))
 
+
+
 #density plots
 for(i in 1:dim){
   name <- paste0("X_", i, "_simulations")
@@ -266,22 +263,34 @@ for(i in 1:dim){
   print(plot)
 }
 
+
+
 #plot the acf functions
     for(i in 1:dim){
       name <- paste0("X_", i, "_simulations")
       simulated_data <- get(name)
-      par(mfrow=c(2,2))
-      for (j in 1:4)  {
+      for (j in 1:n_samples)  {
         acf(simulated_data[j, -c(1:burn_in)], main = paste0("X_", i, " chain ",j))
       }
-      par(mfrow=c(1,1)) #restore default
     }
+
+
 
 #plot the r hat diagnostics
 for(i in 1:dim){
   mcmc.list <- paste0("mcmc.list.X", i)
   mcmc.list <- get(mcmc.list)
-  gelman.plot(mcmc.list) #, transform = TRUE
+  gelman.plot(mcmc.list, autoburnin = T) #, transform = TRUE
 }
 
 dev.off()
+
+txt_file = paste0("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/diagnostic_plots/", simulation_name,".txt")
+sink(txt_file)
+#here I print the automatic diagnostics
+print("Convergence check with the Rubin-Gelman diagnostic")
+print(convergence_check_Rhat(limit = 1.1))
+print("Convergence check with the acf diagnostic")
+print(convergence_check_acf(burn_in))
+sink()
+
