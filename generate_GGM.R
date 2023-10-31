@@ -14,10 +14,10 @@ library(coda)
 
 
 # set the dimension/length of X (p int he thesis)
-dim = 100
+dim = 10
 
 #set the parameter values
-eta_0 = rep(1, dim)
+mu_0 = rep(1, dim)
 #eta_0 = rep(1, 10) *runif(10, 0, 1)
 #eta_1 = eta_0
 
@@ -28,8 +28,8 @@ n_samples = 6
 theta <- matrix(0, nrow = dim, ncol = dim)
 
 #swet the upper and the lower bound for the uniform distribution the edge weights are drawn from
-lower_bound = -1
-upper_bound = 0
+lower_bound = 5
+upper_bound = 10
 
 # Fill the upper triangular part with random negative values
 for (i in 1:(dim - 1)) {
@@ -42,8 +42,18 @@ for (i in 1:(dim - 1)) {
 # Copy the upper triangular values to the lower triangular part
 theta[lower.tri(theta)] <- t(theta)[lower.tri(theta)]
 
-# Set the diagonal elements to 0
-diag(theta) <- 0 
+diag(theta) = abs(min(Re(eigen(theta)$values))) + 0.1
+      #omega is forced to be symmetric
+theta <- as.matrix(forceSymmetric(theta))
+      #if omega is positive definite, break
+if(!is.positive.definite(theta)) theta=NA 
+    
+
+  
+  #converts covariance matrix to correlation matrix
+  # prec2cov checkt ob omega invertierbar ist und falls nicht gibt es eine Fehlermeldung, falls ja wird die Inverse berechnet
+  sigma = cov2cor(SpiecEasi::prec2cov(theta))
+
 
 #generate a matrix from a random graph and weight it
 
@@ -70,7 +80,7 @@ diag(theta) <- 0
 
 # Step 1: Compute eta_y
 # since we have a fixed eta, we do not need to compute it 
-eta_y = eta_0
+mu_y = mu_0
 
 # Step 2: generate X_0 from the independent model with eta_y
 
@@ -79,19 +89,18 @@ X_0 = matrix(NA, nrow = dim, ncol = n_samples)
 
 #simulate the starting values for the samples
 for (i in 1:dim){
-  eta_i = eta_y[i]
-  theta_ii =  0 #theta[i,i], we have theta_ii = 0 from the def of the model
-  X_0[i,] = rpois(n_samples, exp(eta_i))
+  mu_i = mu_y[i]
+  sigma_ii =  sigma[i,i]
+  X_0[i,] = rnorm(n_samples, mean = mu_i, sd = sqrt(sigma_ii))
   
 }
 
 # iterations
-iterations = 20000  #N
+iterations = 2000  #N
 burn_in = iterations/2 # burn in length
-log_likelihood_values = numeric(iterations)
-eta_minus_i_old = matrix(eta_0, nrow = dim, ncol = n_samples)
-eta_minus_i= matrix(NA, nrow = dim, ncol = n_samples)
-log_likelihood_variance = numeric(iterations)
+mu_minus_i_old = matrix(mu_0, nrow = dim, ncol = n_samples)
+mu_minus_i= matrix(NA, nrow = dim, ncol = n_samples)
+
 X_old = X_0
 X_new = X_0
 mean_X_new = matrix(NA, nrow = dim, ncol = iterations)
@@ -103,7 +112,9 @@ for (i in 1:dim){
 }
 
 
-
+loop = 1
+j = 1
+i = 2
 #here the gibbs sampling starts
 for(loop in 1:iterations){
   
@@ -111,11 +122,10 @@ for(loop in 1:iterations){
   #a) compute the conditional parameters
   for(j in 1:n_samples){
     for (i in 1:dim){
-      #i-th row of theta after removing the i-th column from theta
-      theta_minus_i = theta[i,-i]
-      eta_minus_i[i,j] = eta_minus_i_old[i,j] + theta_minus_i %*% X_new[-i,j]
+      sigma_dependent = sigma[i,i]-sigma[j,-i]%*%solve(sigma[-i,-i])%*%sigma[-i,j]#hier muss ich die matrixmultiplikation machen theta[i,-i]
+      mu_minus_i[i,j] = mu_minus_i_old[i,j] + sigma[j,-i]%*%solve(sigma[-i,-i])%*% (X_new[-i,j]-mu_minus_i_old[-i,j])
       
-      X_new[i,j] = rpois(1, exp(eta_minus_i[i,j]))
+      X_new[i,j] = rnorm(1,mean = mu_minus_i[i,j], sd =sqrt(sigma_dependent))
     }
 
 
@@ -140,10 +150,10 @@ for(loop in 1:iterations){
 
   }
 
-simulation_name <- paste0("pPGM_simulation_dim", dim, "_lower_bound_", lower_bound, "_upper_bound_", upper_bound, "_n_samples_", n_samples, "_iterations_", iterations)
+simulation_name <- paste0("GGM_simulation_dim", dim, "_lower_bound_", lower_bound, "_upper_bound_", upper_bound, "_n_samples_", n_samples, "_iterations_", iterations)
 #save the results
 result = list(X_new = X_new, mean_X_new = mean_X_new)
-save(result, file = paste0("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations_Poisson/", simulation_name,".RData"))
+save(result, file = paste0("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations_Gaussian/", simulation_name,".RData"))
 
 #I took this function from the coda package and changed it a bit
 #I think something is still off here since it does not coincide with the plots.....

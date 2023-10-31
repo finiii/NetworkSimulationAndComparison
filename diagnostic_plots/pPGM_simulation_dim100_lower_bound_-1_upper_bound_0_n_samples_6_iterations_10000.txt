@@ -1,0 +1,5 @@
+[1] "Convergence check with the Rubin-Gelman diagnostic"
+[1] "All chains converged."
+[1] "Convergence check with the acf diagnostic"
+[1] "Chains that did not converge: X_17 chain 4 did not converge, the last acf value, lag 37 is 0.0513945989575929 and should be smaller than 0.05"
+[2] "Chains that did not converge: X_96 chain 2 did not converge, the last acf value, lag 37 is 0.0597985075685036 and should be smaller than 0.05"
