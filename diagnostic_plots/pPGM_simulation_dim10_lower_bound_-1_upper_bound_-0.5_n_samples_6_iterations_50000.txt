@@ -1,0 +1,57 @@
+[1] "Convergence check with the Rubin-Gelman diagnostic"
+[1] "All chains converged."
+[1] "Convergence check with the acf diagnostic"
+ [1] "Chains that did not converge: X_8 chain 1 did not converge, the last acf value, lag 44 is 0.136492613751912 and should be smaller than 0.05" 
+ [2] "Chains that did not converge: X_8 chain 2 did not converge, the last acf value, lag 44 is 0.113788874729007 and should be smaller than 0.05" 
+ [3] "Chains that did not converge: X_8 chain 3 did not converge, the last acf value, lag 44 is 0.100273938339142 and should be smaller than 0.05" 
+ [4] "Chains that did not converge: X_8 chain 4 did not converge, the last acf value, lag 44 is 0.112079449040636 and should be smaller than 0.05" 
+ [5] "Chains that did not converge: X_8 chain 5 did not converge, the last acf value, lag 44 is 0.132966333266819 and should be smaller than 0.05" 
+ [6] "Chains that did not converge: X_8 chain 6 did not converge, the last acf value, lag 44 is 0.163392351533404 and should be smaller than 0.05" 
+ [7] "Chains that did not converge: X_9 chain 1 did not converge, the last acf value, lag 44 is 0.135165588093053 and should be smaller than 0.05" 
+ [8] "Chains that did not converge: X_9 chain 2 did not converge, the last acf value, lag 44 is 0.112156699518944 and should be smaller than 0.05" 
+ [9] "Chains that did not converge: X_9 chain 3 did not converge, the last acf value, lag 44 is 0.0967135950333377 and should be smaller than 0.05"
+[10] "Chains that did not converge: X_9 chain 4 did not converge, the last acf value, lag 44 is 0.104243848001645 and should be smaller than 0.05" 
+[11] "Chains that did not converge: X_9 chain 5 did not converge, the last acf value, lag 44 is 0.135725287538745 and should be smaller than 0.05" 
+[12] "Chains that did not converge: X_9 chain 6 did not converge, the last acf value, lag 44 is 0.16013620764596 and should be smaller than 0.05"  
+[1] "This is the mean correlation matrix of the last 1000 iterations"
+      [,1]   [,2]   [,3]   [,4]   [,5]   [,6]  [,7]   [,8]   [,9]  [,10]
+ [1,]    1     NA     NA     NA     NA     NA    NA     NA     NA     NA
+ [2,]   NA  1.000  0.032  0.070  0.186 -0.024 0.312 -0.305  0.201  0.006
+ [3,]   NA  0.032  1.000  0.030 -0.025 -0.303 0.383 -0.012 -0.061 -0.142
+ [4,]   NA  0.070  0.030  1.000  0.277  0.293 0.072 -0.182  0.349 -0.029
+ [5,]   NA  0.186 -0.025  0.277  1.000  0.396 0.337 -0.209  0.508  0.549
+ [6,]   NA -0.024 -0.303  0.293  0.396  1.000 0.269  0.127  0.272  0.549
+ [7,]   NA  0.312  0.383  0.072  0.337  0.269 1.000  0.102  0.139  0.402
+ [8,]   NA -0.305 -0.012 -0.182 -0.209  0.127 0.102  1.000 -0.778  0.155
+ [9,]   NA  0.201 -0.061  0.349  0.508  0.272 0.139 -0.778  1.000  0.199
+[10,]   NA  0.006 -0.142 -0.029  0.549  0.549 0.402  0.155  0.199  1.000
+[1] "The counts generated in the last step look as follows:"
+      [,1] [,2] [,3] [,4] [,5] [,6]
+ [1,]    0    0    0    0    0    0
+ [2,]    9    2    7    5    5    8
+ [3,]    8    6    6   12    4    7
+ [4,]    9   10   13    8    8    9
+ [5,]   15    9    9    4    6    7
+ [6,]    7    8    7    4    6    4
+ [7,]    8    6    6    6    5    5
+ [8,]    0    8    0    2    7    2
+ [9,]    8    0    6    1    0    1
+[10,]    8    8    4    4    5    5
+[1] "The data was created with a eta of"
+ [1] 2 2 2 2 2 2 2 2 2 2
+[1] "The data was created with the following theta matrix:"
+        [,1] [,2] [,3] [,4] [,5] [,6]   [,7]   [,8]   [,9]  [,10]
+ [1,]  0.000    0    0    0    0    0 -0.611  0.000  0.000 -0.686
+ [2,]  0.000    0    0    0    0    0  0.000  0.000  0.000  0.000
+ [3,]  0.000    0    0    0    0    0  0.000  0.000  0.000  0.000
+ [4,]  0.000    0    0    0    0    0  0.000  0.000  0.000  0.000
+ [5,]  0.000    0    0    0    0    0  0.000  0.000  0.000  0.000
+ [6,]  0.000    0    0    0    0    0  0.000  0.000  0.000  0.000
+ [7,] -0.611    0    0    0    0    0  0.000  0.000  0.000  0.000
+ [8,]  0.000    0    0    0    0    0  0.000  0.000 -0.951  0.000
+ [9,]  0.000    0    0    0    0    0  0.000 -0.951  0.000  0.000
+[10,] -0.686    0    0    0    0    0  0.000  0.000  0.000  0.000
+[1] "The mean effective sample size is"
+[1] 35200.74
+[1] "The mean effective sample size without burnin is"
+[1] 17827.32

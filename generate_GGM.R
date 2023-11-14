@@ -14,7 +14,7 @@ library(coda)
 
 
 # set the dimension/length of X (p int he thesis)
-dim = 10
+dim = 100
 
 #set the parameter values
 mu_0 = rep(1, dim)
@@ -28,8 +28,8 @@ n_samples = 6
 theta <- matrix(0, nrow = dim, ncol = dim)
 
 #swet the upper and the lower bound for the uniform distribution the edge weights are drawn from
-lower_bound = 5
-upper_bound = 10
+lower_bound = -1
+upper_bound = 0
 
 # Fill the upper triangular part with random negative values
 for (i in 1:(dim - 1)) {
@@ -153,6 +153,11 @@ for(loop in 1:iterations){
 simulation_name <- paste0("GGM_simulation_dim", dim, "_lower_bound_", lower_bound, "_upper_bound_", upper_bound, "_n_samples_", n_samples, "_iterations_", iterations)
 #save the results
 result = list(X_new = X_new, mean_X_new = mean_X_new)
+#add all X_i_simulations to results
+for (i in 1:dim){
+  name <- paste0("X_", i, "_simulations")
+  result[[name]] <- get(name)
+}
 save(result, file = paste0("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations_Gaussian/", simulation_name,".RData"))
 
 #I took this function from the coda package and changed it a bit

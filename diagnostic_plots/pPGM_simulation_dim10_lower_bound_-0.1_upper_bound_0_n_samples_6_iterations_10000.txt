@@ -1,0 +1,21 @@
+[1] "Convergence check with the Rubin-Gelman diagnostic"
+[1] "All chains converged."
+[1] "Convergence check with the acf diagnostic"
+[1] "This is the mean covariance matrix of the last 1000 iterations"
+      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]    [,10]
+ [1,]    0    0    0    0    0    0    0    0    0     0.00
+ [2,]    0    0    0    0    0    0    0    0    0     0.00
+ [3,]    0    0    0    0    0    0    0    0    0     0.00
+ [4,]    0    0    0    0    0    0    0    0    0     0.00
+ [5,]    0    0    0    0    0    0    0    0    0     0.00
+ [6,]    0    0    0    0    0    0    0    0    0     0.00
+ [7,]    0    0    0    0    0    0    0    0    0     0.00
+ [8,]    0    0    0    0    0    0    0    0    0     0.00
+ [9,]    0    0    0    0    0    0    0    0    0     0.00
+[10,]    0    0    0    0    0    0    0    0    0 14368.83
+[1] "The data was created with a eta of"
+ [1] 10 10 10 10 10 10 10 10 10 10
+[1] "The mean effective sample size is"
+[1] 9994.964
+[1] "The mean effective sample size without burnin is"
+[1] 485.4568

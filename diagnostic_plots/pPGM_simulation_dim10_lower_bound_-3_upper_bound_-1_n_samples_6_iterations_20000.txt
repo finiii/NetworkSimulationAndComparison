@@ -1,0 +1,77 @@
+[1] "Convergence check with the Rubin-Gelman diagnostic"
+[1] "All chains converged."
+[1] "Convergence check with the acf diagnostic"
+ [1] "Chains that did not converge: X_1 chain 2 did not converge, the last acf value, lag 41 is 0.141619230385514 and should be smaller than 0.05"  
+ [2] "Chains that did not converge: X_1 chain 3 did not converge, the last acf value, lag 41 is 0.105861587923227 and should be smaller than 0.05"  
+ [3] "Chains that did not converge: X_1 chain 4 did not converge, the last acf value, lag 41 is 0.110301526099006 and should be smaller than 0.05"  
+ [4] "Chains that did not converge: X_1 chain 5 did not converge, the last acf value, lag 41 is 0.101249573946894 and should be smaller than 0.05"  
+ [5] "Chains that did not converge: X_1 chain 6 did not converge, the last acf value, lag 41 is 0.223572514612018 and should be smaller than 0.05"  
+ [6] "Chains that did not converge: X_2 chain 2 did not converge, the last acf value, lag 41 is 0.10242382101421 and should be smaller than 0.05"   
+ [7] "Chains that did not converge: X_2 chain 3 did not converge, the last acf value, lag 41 is 0.139169579454678 and should be smaller than 0.05"  
+ [8] "Chains that did not converge: X_2 chain 4 did not converge, the last acf value, lag 41 is 0.10551561227065 and should be smaller than 0.05"   
+ [9] "Chains that did not converge: X_2 chain 6 did not converge, the last acf value, lag 41 is 0.112952073318948 and should be smaller than 0.05"  
+[10] "Chains that did not converge: X_3 chain 3 did not converge, the last acf value, lag 41 is 0.0904932889956623 and should be smaller than 0.05" 
+[11] "Chains that did not converge: X_3 chain 5 did not converge, the last acf value, lag 41 is 0.0619445192505163 and should be smaller than 0.05" 
+[12] "Chains that did not converge: X_3 chain 6 did not converge, the last acf value, lag 41 is 0.0871845923653209 and should be smaller than 0.05" 
+[13] "Chains that did not converge: X_4 chain 3 did not converge, the last acf value, lag 41 is 0.0823500101119521 and should be smaller than 0.05" 
+[14] "Chains that did not converge: X_4 chain 5 did not converge, the last acf value, lag 41 is 0.0699052685847818 and should be smaller than 0.05" 
+[15] "Chains that did not converge: X_4 chain 6 did not converge, the last acf value, lag 41 is 0.0992241810074578 and should be smaller than 0.05" 
+[16] "Chains that did not converge: X_5 chain 1 did not converge, the last acf value, lag 41 is 0.0704229451068166 and should be smaller than 0.05" 
+[17] "Chains that did not converge: X_5 chain 2 did not converge, the last acf value, lag 41 is 0.163991713932558 and should be smaller than 0.05"  
+[18] "Chains that did not converge: X_5 chain 3 did not converge, the last acf value, lag 41 is 0.130556055552685 and should be smaller than 0.05"  
+[19] "Chains that did not converge: X_5 chain 4 did not converge, the last acf value, lag 41 is 0.143698204121333 and should be smaller than 0.05"  
+[20] "Chains that did not converge: X_5 chain 5 did not converge, the last acf value, lag 41 is 0.099277217257305 and should be smaller than 0.05"  
+[21] "Chains that did not converge: X_5 chain 6 did not converge, the last acf value, lag 41 is 0.126439135797392 and should be smaller than 0.05"  
+[22] "Chains that did not converge: X_6 chain 1 did not converge, the last acf value, lag 41 is 0.13055356920462 and should be smaller than 0.05"   
+[23] "Chains that did not converge: X_6 chain 2 did not converge, the last acf value, lag 41 is 0.190662253773127 and should be smaller than 0.05"  
+[24] "Chains that did not converge: X_6 chain 3 did not converge, the last acf value, lag 41 is 0.17582639046128 and should be smaller than 0.05"   
+[25] "Chains that did not converge: X_6 chain 4 did not converge, the last acf value, lag 41 is 0.0908749574527773 and should be smaller than 0.05" 
+[26] "Chains that did not converge: X_6 chain 5 did not converge, the last acf value, lag 41 is 0.0790525688484978 and should be smaller than 0.05" 
+[27] "Chains that did not converge: X_6 chain 6 did not converge, the last acf value, lag 41 is 0.100524332824657 and should be smaller than 0.05"  
+[28] "Chains that did not converge: X_7 chain 1 did not converge, the last acf value, lag 41 is 0.196084329703465 and should be smaller than 0.05"  
+[29] "Chains that did not converge: X_7 chain 2 did not converge, the last acf value, lag 41 is 0.162830332790784 and should be smaller than 0.05"  
+[30] "Chains that did not converge: X_7 chain 3 did not converge, the last acf value, lag 41 is 0.148741441186978 and should be smaller than 0.05"  
+[31] "Chains that did not converge: X_7 chain 4 did not converge, the last acf value, lag 41 is 0.178683038889895 and should be smaller than 0.05"  
+[32] "Chains that did not converge: X_7 chain 5 did not converge, the last acf value, lag 41 is 0.190326351630167 and should be smaller than 0.05"  
+[33] "Chains that did not converge: X_7 chain 6 did not converge, the last acf value, lag 41 is 0.199631536984169 and should be smaller than 0.05"  
+[34] "Chains that did not converge: X_8 chain 1 did not converge, the last acf value, lag 41 is 0.107185419189924 and should be smaller than 0.05"  
+[35] "Chains that did not converge: X_8 chain 2 did not converge, the last acf value, lag 41 is 0.129001480240622 and should be smaller than 0.05"  
+[36] "Chains that did not converge: X_8 chain 6 did not converge, the last acf value, lag 41 is 0.108291935918753 and should be smaller than 0.05"  
+[37] "Chains that did not converge: X_9 chain 1 did not converge, the last acf value, lag 41 is 0.26121167791214 and should be smaller than 0.05"   
+[38] "Chains that did not converge: X_9 chain 2 did not converge, the last acf value, lag 41 is 0.244413303033429 and should be smaller than 0.05"  
+[39] "Chains that did not converge: X_9 chain 3 did not converge, the last acf value, lag 41 is 0.338150221978873 and should be smaller than 0.05"  
+[40] "Chains that did not converge: X_9 chain 4 did not converge, the last acf value, lag 41 is 0.293927188054493 and should be smaller than 0.05"  
+[41] "Chains that did not converge: X_9 chain 5 did not converge, the last acf value, lag 41 is 0.157410764888551 and should be smaller than 0.05"  
+[42] "Chains that did not converge: X_9 chain 6 did not converge, the last acf value, lag 41 is 0.226591795626286 and should be smaller than 0.05"  
+[43] "Chains that did not converge: X_10 chain 4 did not converge, the last acf value, lag 41 is 0.0726066253419147 and should be smaller than 0.05"
+[44] "Chains that did not converge: X_10 chain 5 did not converge, the last acf value, lag 41 is 0.108825149723784 and should be smaller than 0.05" 
+[45] "Chains that did not converge: X_10 chain 6 did not converge, the last acf value, lag 41 is 0.105012341200042 and should be smaller than 0.05" 
+[1] "This is the mean covariance matrix of the last 1000 iterations"
+               [,1]          [,2]         [,3]          [,4]         [,5]
+ [1,]  0.8779955479 -1.666667e-02 -0.160384116 -0.0444987682 -0.324446946
+ [2,] -0.0166666724  7.318232e-02  0.031217448  0.0749855141 -0.071585541
+ [3,] -0.1603841164  3.121745e-02  0.850647133 -0.0194171585 -0.387191235
+ [4,] -0.0444987682  7.498551e-02 -0.019417159  0.9972487943 -0.381155263
+ [5,] -0.3244469462 -7.158554e-02 -0.387191235 -0.3811552631  4.925867857
+ [6,] -0.9033528764 -1.503328e-01 -0.748042965 -0.4664708416 -2.340089795
+ [7,] -0.0083007811  2.083333e-02  0.020874023 -0.0125080586 -0.025244396
+ [8,]  0.0832682589 -1.225584e-02 -0.004203288 -0.0293151875 -0.035127871
+ [9,] -0.2027994792 -1.060872e-01 -0.161458333 -0.3622070313 -0.827246237
+[10,]  0.0003252442 -8.779666e-05  0.002733895 -0.0009633998 -0.003224079
+              [,6]          [,7]          [,8]          [,9]         [,10]
+ [1,] -0.903352876 -8.300781e-03  0.0832682589 -0.2027994792  3.252442e-04
+ [2,] -0.150332765  2.083333e-02 -0.0122558395 -0.1060872396 -8.779666e-05
+ [3,] -0.748042965  2.087402e-02 -0.0042032876 -0.1614583333  2.733895e-03
+ [4,] -0.466470842 -1.250806e-02 -0.0293151875 -0.3622070313 -9.633998e-04
+ [5,] -2.340089795 -2.524440e-02 -0.0351278708 -0.8272462368 -3.224079e-03
+ [6,] 12.791953798 -1.257335e-02 -0.1634989421 -1.8136718432 -2.335478e-03
+ [7,] -0.012573353  2.087410e-02 -0.0041666667 -0.0166666667 -1.119450e-07
+ [8,] -0.163498942 -4.166667e-03  0.0631002090 -0.0821940104 -1.384223e-04
+ [9,] -1.813671843 -1.666667e-02 -0.0821940104  4.8806966543 -7.488251e-04
+[10,] -0.002335478 -1.119450e-07 -0.0001384223 -0.0007488251  2.116676e-03
+[1] "The data was created with a eta of"
+ [1] 2 2 2 2 2 2 2 2 2 2
+[1] "The mean effective sample size is"
+[1] 594.466
+[1] "The mean effective sample size without burnin is"
+[1] 310.328

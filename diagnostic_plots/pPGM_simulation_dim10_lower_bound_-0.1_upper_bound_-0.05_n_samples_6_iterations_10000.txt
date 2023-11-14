@@ -1,0 +1,45 @@
+[1] "Convergence check with the Rubin-Gelman diagnostic"
+[1] "All chains converged."
+[1] "Convergence check with the acf diagnostic"
+[1] "This is the mean correlation matrix of the last 1000 iterations"
+        [,1] [,2] [,3] [,4] [,5] [,6] [,7]   [,8]   [,9]  [,10]
+ [1,]  1.000   NA   NA   NA   NA   NA   NA -0.077  0.145  0.266
+ [2,]     NA    1   NA   NA   NA   NA   NA     NA     NA     NA
+ [3,]     NA   NA    1   NA   NA   NA   NA     NA     NA     NA
+ [4,]     NA   NA   NA    1   NA   NA   NA     NA     NA     NA
+ [5,]     NA   NA   NA   NA    1   NA   NA     NA     NA     NA
+ [6,]     NA   NA   NA   NA   NA    1   NA     NA     NA     NA
+ [7,]     NA   NA   NA   NA   NA   NA    1     NA     NA     NA
+ [8,] -0.077   NA   NA   NA   NA   NA   NA  1.000 -0.198 -0.009
+ [9,]  0.145   NA   NA   NA   NA   NA   NA -0.198  1.000 -0.028
+[10,]  0.266   NA   NA   NA   NA   NA   NA -0.009 -0.028  1.000
+[1] "The counts generated in the last step look as follows:"
+      [,1] [,2] [,3] [,4] [,5] [,6]
+ [1,]  140  159  167  151  134  116
+ [2,]    0    0    0    0    0    0
+ [3,]    0    0    0    0    0    0
+ [4,]    0    0    0    0    0    0
+ [5,]    0    0    0    0    0    0
+ [6,]    0    0    0    0    0    0
+ [7,]    0    0    0    0    0    0
+ [8,]  140  130  148  179  142  151
+ [9,]  136  161  156  149  151  153
+[10,]  157  151  143  162  163  134
+[1] "The data was created with a eta of"
+ [1] 5 5 5 5 5 5 5 5 5 5
+[1] "The data was created with the following theta matrix:"
+        [,1]   [,2]   [,3]   [,4]   [,5]   [,6]   [,7]   [,8]   [,9]  [,10]
+ [1,]  0.000  0.000  0.000  0.000 -0.066  0.000  0.000  0.000  0.000  0.000
+ [2,]  0.000  0.000 -0.085 -0.053  0.000 -0.075 -0.063  0.000 -0.068 -0.085
+ [3,]  0.000 -0.085  0.000  0.000 -0.064  0.000 -0.091  0.000  0.000 -0.097
+ [4,]  0.000 -0.053  0.000  0.000  0.000  0.000  0.000 -0.087  0.000 -0.050
+ [5,] -0.066  0.000 -0.064  0.000  0.000  0.000  0.000  0.000  0.000 -0.053
+ [6,]  0.000 -0.075  0.000  0.000  0.000  0.000  0.000  0.000 -0.057 -0.062
+ [7,]  0.000 -0.063 -0.091  0.000  0.000  0.000  0.000 -0.095  0.000 -0.062
+ [8,]  0.000  0.000  0.000 -0.087  0.000  0.000 -0.095  0.000  0.000  0.000
+ [9,]  0.000 -0.068  0.000  0.000  0.000 -0.057  0.000  0.000  0.000  0.000
+[10,]  0.000 -0.085 -0.097 -0.050 -0.053 -0.062 -0.062  0.000  0.000  0.000
+[1] "The mean effective sample size is"
+[1] 10031.76
+[1] "The mean effective sample size without burnin is"
+[1] 2175.867
