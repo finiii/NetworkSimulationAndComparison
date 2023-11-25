@@ -28,8 +28,8 @@ n_samples = 6
 theta <- matrix(0, nrow = dim, ncol = dim)
 
 #swet the upper and the lower bound for the uniform distribution the edge weights are drawn from
-lower_bound = -1
-upper_bound = -0.5
+lower_bound = -0.1
+upper_bound = -0.05
 
 # Fill the upper triangular part with random negative values
 #for (i in 1:(dim - 1)) {
@@ -48,7 +48,7 @@ upper_bound = -0.5
 #generate a matrix from a random graph and weight it
 
 #probability of an edge
-edge_probability = 0.1
+edge_probability = 0.3
 
 #samples a random graph with d nodes
 #every possible edge is present with probability prob
@@ -65,8 +65,6 @@ diag(weighted_adj) = 0
 theta = weighted_adj
 theta = as.matrix(forceSymmetric(theta))
 
-
-
 ##########################################################################
 
 # Step 1: Compute eta_y
@@ -81,13 +79,11 @@ X_0 = matrix(NA, nrow = dim, ncol = n_samples)
 #simulate the starting values for the samples
 for (i in 1:dim){
   eta_i = eta_y[i]
-  theta_ii =  0 #theta[i,i], we have theta_ii = 0 from the def of the model
   X_0[i,] = rpois(n_samples, exp(eta_i))
-  
 }
 
 # iterations
-iterations = 50000  #N
+iterations = 20000  #N
 burn_in = iterations/2 # burn in length
 
 
@@ -98,10 +94,7 @@ eta_minus_i= matrix(NA, nrow = dim, ncol = n_samples)
 log_likelihood_variance = numeric(iterations)
 X_old = X_0
 X_new = X_0
-mean_X_new = matrix(NA, nrow = dim, ncol = iterations)
-mean_per_chain = matrix(NA, nrow = n_samples, ncol = iterations)
-correlation_matrix = matrix(NA, nrow = dim, ncol = dim)
-correlation_matrix_new = matrix(NA, nrow = dim, ncol = dim)
+
 
 for (i in 1:dim){
   name <- paste0("X_", i, "_simulations")
@@ -122,16 +115,13 @@ for(loop in 1:iterations){
       eta_minus_i[i,j] = eta_minus_i_old[i,j] + theta_minus_i %*% X_new[-i,j]
       X_new[i,j] = rpois(1, exp(eta_minus_i[i,j]))
     }
-
-
+    #here the eta update happens
+    #eta_minus_i_old = eta_minus_i
   }
   
 
   
-  # Step 4: caluclate the mean and the correlation matrix
-    mean_X_new[,loop] = rowMeans(X_new)
-
-    mean_per_chain[,loop] = colMeans(X_new)
+  # Step 4: caluclate the correlation matrix
 
 
     #save the simulated values
@@ -139,19 +129,12 @@ for(loop in 1:iterations){
       name <- paste0("X_", i, "_simulations")
       assign(name, cbind(get(name), X_new[i,]))
     }
-    if (loop == iterations-100){
-      correlation_matrix = cor(t(X_new))
-   }
-   #take the mean of the last 100 iterations
-  if(loop > iterations-100){
-  correlation_matrix_new <- cor(t(X_new))
-   correlation_matrix <- (correlation_matrix_new + correlation_matrix)/2
-  }
+    print(loop)
   }
 
-simulation_name <- paste0("pPGM_simulation_dim", dim, "_lower_bound_", lower_bound, "_upper_bound_", upper_bound, "_n_samples_", n_samples, "_iterations_", iterations)
+simulation_name <- paste0("pPGM_simulation_dim", dim, "_lower_bound_", lower_bound, "_upper_bound_", upper_bound, "_n_samples_", n_samples, "_iterations_", iterations, "_edge_probability_", edge_probability)
 #save the results
-result = list(X_new = X_new, mean_X_new = mean_X_new, correlation_matrix = correlation_matrix, theta = theta)
+result = list(X_new = X_new, theta = theta)
 #add all X_i_simulations to results
 for (i in 1:dim){
   name <- paste0("X_", i, "_simulations")
@@ -230,7 +213,6 @@ convergence_check_Rhat <- function(limit = 1.1){
   }
   }
 
-convergence_check_Rhat(limit = 1.1)
 
 #build the acf convergence check
 convergence_check_acf <- function(burn_in, limit = 0.05){
@@ -254,7 +236,6 @@ convergence_check_acf <- function(burn_in, limit = 0.05){
     return(paste("Chains that did not converge:", non_converged_chains))
   }
 }
-convergence_check_acf(burn_in)
 
 #calculate the mean effective sample size
 means <- numeric(dim)
@@ -272,6 +253,13 @@ for (i in 1:dim){
 }
 mean_ESS_without_burnin <- mean(means_without_burnin)
 
+#prepare for check the correlation
+data_final_samples <- lapply(names(result), function(name) {
+  if (grepl("^X_[0-9]+_simulations$", name)) {
+    as.vector(result[[name]][,seq(ncol(result[[name]])/2, ncol(result[[name]]), by = 35) ])
+  }
+})
+data_final_samples <- as.data.frame(do.call(cbind, data_final_samples))
 
 #diagnostic plots
 pdf(file = paste0("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/diagnostic_plots/", simulation_name,".pdf"))
@@ -322,8 +310,8 @@ print("Convergence check with the Rubin-Gelman diagnostic")
 print(convergence_check_Rhat(limit = 1.1))
 print("Convergence check with the acf diagnostic")
 print(convergence_check_acf(burn_in))
-print("This is the mean correlation matrix of the last 1000 iterations")
-print(round(correlation_matrix,3))
+print("This is the mean correlation matrix of the chosen samples, adjusted for autocorretion")
+print(round(cor(data_final_samples),3))
 print("The counts generated in the last step look as follows:")
 print(X_new)
 print("The data was created with a eta of")
@@ -336,7 +324,7 @@ print("The mean effective sample size without burnin is")
 print(mean_ESS_without_burnin)
 sink()
 
-#load("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations_Poisson/pPGM_simulation_dim100_lower_bound_-10_upper_bound_-5_n_samples_6_iterations_70000.RData")
+load("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations_Poisson/pPGM_simulation_dim100_lower_bound_-10_upper_bound_-5_n_samples_6_iterations_70000.RData")
 #calculate the mean and the mean covariance matrix
 #I want this mean over all components
 

@@ -1,0 +1,45 @@
+[1] "Convergence check with the Rubin-Gelman diagnostic"
+[1] "All chains converged."
+[1] "Convergence check with the acf diagnostic"
+[1] "This is the mean correlation matrix of the chosen samples, adjusted for autocorretion"
+    V1     V2     V3 V4     V5 V6     V7 V8 V9    V10
+V1   1     NA     NA NA     NA NA     NA NA NA     NA
+V2  NA  1.000  0.024 NA -0.013 NA -0.001 NA NA -0.081
+V3  NA  0.024  1.000 NA -0.116 NA -0.002 NA NA -0.013
+V4  NA     NA     NA  1     NA NA     NA NA NA     NA
+V5  NA -0.013 -0.116 NA  1.000 NA -0.001 NA NA  0.009
+V6  NA     NA     NA NA     NA  1     NA NA NA     NA
+V7  NA -0.001 -0.002 NA -0.001 NA  1.000 NA NA  0.014
+V8  NA     NA     NA NA     NA NA     NA  1 NA     NA
+V9  NA     NA     NA NA     NA NA     NA NA  1     NA
+V10 NA -0.081 -0.013 NA  0.009 NA  0.014 NA NA  1.000
+[1] "The counts generated in the last step look as follows:"
+      [,1] [,2] [,3] [,4] [,5] [,6]
+ [1,]    0    0    0    0    0    0
+ [2,]    0    0    0    0    0    0
+ [3,]  145  149  135  152  161  134
+ [4,]    0    0    0    0    0    0
+ [5,]    0    0    0    0    0    0
+ [6,]    0    0    0    0    0    0
+ [7,]    0    0    0    0    0    0
+ [8,]    0    0    0    0    0    0
+ [9,]    0    0    0    0    0    0
+[10,]  160  156  168  161  177  150
+[1] "The data was created with a eta of"
+ [1] 5 5 5 5 5 5 5 5 5 5
+[1] "The data was created with the following theta matrix:"
+        [,1]   [,2]   [,3]   [,4]   [,5]   [,6]   [,7]   [,8]   [,9]  [,10]
+ [1,]  0.000 -0.099 -0.097 -0.099  0.000  0.000 -0.087 -0.097 -0.094 -0.092
+ [2,] -0.099  0.000  0.000 -0.062 -0.051 -0.059  0.000  0.000 -0.095 -0.068
+ [3,] -0.097  0.000  0.000 -0.081 -0.062 -0.068 -0.091 -0.083 -0.075  0.000
+ [4,] -0.099 -0.062 -0.081  0.000 -0.089  0.000 -0.054 -0.097  0.000 -0.078
+ [5,]  0.000 -0.051 -0.062 -0.089  0.000 -0.079 -0.079 -0.056  0.000  0.000
+ [6,]  0.000 -0.059 -0.068  0.000 -0.079  0.000 -0.054 -0.069 -0.067 -0.093
+ [7,] -0.087  0.000 -0.091 -0.054 -0.079 -0.054  0.000 -0.089 -0.065  0.000
+ [8,] -0.097  0.000 -0.083 -0.097 -0.056 -0.069 -0.089  0.000 -0.070 -0.085
+ [9,] -0.094 -0.095 -0.075  0.000  0.000 -0.067 -0.065 -0.070  0.000 -0.057
+[10,] -0.092 -0.068  0.000 -0.078  0.000 -0.093  0.000 -0.085 -0.057  0.000
+[1] "The mean effective sample size is"
+[1] 99737.09
+[1] "The mean effective sample size without burnin is"
+[1] 24584.43

@@ -1,0 +1,46 @@
+[1] "Convergence check with the Rubin-Gelman diagnostic"
+[1] "All chains converged."
+[1] "Convergence check with the acf diagnostic"
+[1] "All chains converged."
+[1] "This is the mean correlation matrix of the last 10000 iterations"
+      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+ [1,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA
+ [2,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA
+ [3,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA
+ [4,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA
+ [5,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA
+ [6,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA
+ [7,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA
+ [8,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA
+ [9,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA
+[10,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA
+[1] "The counts generated in the last step look as follows:"
+      [,1] [,2] [,3] [,4] [,5] [,6]
+ [1,]    5   12    4    8    9    4
+ [2,]   11   11    6    5    8   12
+ [3,]   14   11    8    8    8    8
+ [4,]    5   12   10   14    5   10
+ [5,]    7    8    4    7    3    5
+ [6,]    6    7    9    5    6    6
+ [7,]    7    6   11   10    4    7
+ [8,]   11    8    3   11    6    5
+ [9,]    7    5    4    9    6   11
+[10,]    3    7    5    8    8    8
+[1] "The data was created with a eta of"
+ [1] 2 2 2 2 2 2 2 2 2 2
+[1] "The data was created with the following theta matrix:"
+      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+ [1,]    0    0    0    0    0    0    0    0    0     0
+ [2,]    0    0    0    0    0    0    0    0    0     0
+ [3,]    0    0    0    0    0    0    0    0    0     0
+ [4,]    0    0    0    0    0    0    0    0    0     0
+ [5,]    0    0    0    0    0    0    0    0    0     0
+ [6,]    0    0    0    0    0    0    0    0    0     0
+ [7,]    0    0    0    0    0    0    0    0    0     0
+ [8,]    0    0    0    0    0    0    0    0    0     0
+ [9,]    0    0    0    0    0    0    0    0    0     0
+[10,]    0    0    0    0    0    0    0    0    0     0
+[1] "The mean effective sample size is"
+[1] 10018.98
+[1] "The mean effective sample size without burnin is"
+[1] 5001.723

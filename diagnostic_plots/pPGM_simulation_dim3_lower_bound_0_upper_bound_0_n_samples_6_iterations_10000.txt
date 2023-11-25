@@ -1,0 +1,29 @@
+[1] "Convergence check with the Rubin-Gelman diagnostic"
+[1] "All chains converged."
+[1] "Convergence check with the acf diagnostic"
+[1] "All chains converged."
+[1] "This is the mean correlation matrix of the last 1000 iterations"
+       [,1]   [,2]   [,3]
+[1,]  1.000  0.208 -0.146
+[2,]  0.208  1.000 -0.098
+[3,] -0.146 -0.098  1.000
+[1] "The counts generated in the last step look as follows:"
+             [,1]         [,2]         [,3]         [,4]         [,5]
+[1,] 1.000000e+00 2.000000e+00 2.000000e+00 2.000000e+00 2.000000e+00
+[2,] 2.204200e+04 2.181500e+04 2.213000e+04 2.234000e+04 2.207700e+04
+[3,] 1.068648e+13 1.068647e+13 1.068647e+13 1.068647e+13 1.068647e+13
+             [,6]
+[1,] 0.000000e+00
+[2,] 2.200700e+04
+[3,] 1.068648e+13
+[1] "The data was created with a eta of"
+[1]  0.5 10.0 30.0
+[1] "The data was created with the following theta matrix:"
+     [,1] [,2] [,3]
+[1,]    0    0    0
+[2,]    0    0    0
+[3,]    0    0    0
+[1] "The mean effective sample size is"
+[1] 9851.854
+[1] "The mean effective sample size without burnin is"
+[1] 5071.216

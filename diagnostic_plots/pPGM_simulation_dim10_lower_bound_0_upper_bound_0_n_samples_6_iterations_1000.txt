@@ -1,0 +1,54 @@
+[1] "Convergence check with the Rubin-Gelman diagnostic"
+[1] "All chains converged."
+[1] "Convergence check with the acf diagnostic"
+[1] "Chains that did not converge: X_2 chain 5 did not converge, the last acf value, lag 27 is 0.0973698313692793 and should be smaller than 0.05"
+[2] "Chains that did not converge: X_4 chain 2 did not converge, the last acf value, lag 27 is 0.0540168636973911 and should be smaller than 0.05"
+[3] "Chains that did not converge: X_4 chain 3 did not converge, the last acf value, lag 27 is 0.0516696448287031 and should be smaller than 0.05"
+[4] "Chains that did not converge: X_5 chain 1 did not converge, the last acf value, lag 27 is 0.0655834240286202 and should be smaller than 0.05"
+[5] "Chains that did not converge: X_6 chain 1 did not converge, the last acf value, lag 27 is 0.0808429923384763 and should be smaller than 0.05"
+[6] "Chains that did not converge: X_8 chain 1 did not converge, the last acf value, lag 27 is 0.0551558531388169 and should be smaller than 0.05"
+[7] "Chains that did not converge: X_8 chain 2 did not converge, the last acf value, lag 27 is 0.0583294421638262 and should be smaller than 0.05"
+[8] "Chains that did not converge: X_9 chain 3 did not converge, the last acf value, lag 27 is 0.0642200363288744 and should be smaller than 0.05"
+[9] "Chains that did not converge: X_9 chain 6 did not converge, the last acf value, lag 27 is 0.0876883523384749 and should be smaller than 0.05"
+[1] "This is the mean correlation matrix of the last 10000 iterations"
+      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+ [1,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA
+ [2,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA
+ [3,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA
+ [4,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA
+ [5,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA
+ [6,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA
+ [7,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA
+ [8,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA
+ [9,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA
+[10,]   NA   NA   NA   NA   NA   NA   NA   NA   NA    NA
+[1] "The counts generated in the last step look as follows:"
+      [,1] [,2] [,3] [,4] [,5] [,6]
+ [1,]    7    4    7    8   13   12
+ [2,]   12   12    4   12    7   12
+ [3,]    6   13    6    8    6    6
+ [4,]   10    5    8   10    6    5
+ [5,]    6    5    9   11    9    7
+ [6,]   10    6    5    4    5   13
+ [7,]    9    8    6   10    9    5
+ [8,]   14    8    5   13   16    3
+ [9,]    3    7    7    7   14    7
+[10,]    4   13    9   10    5   13
+[1] "The data was created with a eta of"
+ [1] 2 2 2 2 2 2 2 2 2 2
+[1] "The data was created with the following theta matrix:"
+      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+ [1,]    0    0    0    0    0    0    0    0    0     0
+ [2,]    0    0    0    0    0    0    0    0    0     0
+ [3,]    0    0    0    0    0    0    0    0    0     0
+ [4,]    0    0    0    0    0    0    0    0    0     0
+ [5,]    0    0    0    0    0    0    0    0    0     0
+ [6,]    0    0    0    0    0    0    0    0    0     0
+ [7,]    0    0    0    0    0    0    0    0    0     0
+ [8,]    0    0    0    0    0    0    0    0    0     0
+ [9,]    0    0    0    0    0    0    0    0    0     0
+[10,]    0    0    0    0    0    0    0    0    0     0
+[1] "The mean effective sample size is"
+[1] 1017.923
+[1] "The mean effective sample size without burnin is"
+[1] 520.0996
