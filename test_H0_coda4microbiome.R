@@ -1,41 +1,29 @@
 library(coda4microbiome)
-library(dplyr)
 
-#load my own data to test if it works with them
-result <- "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations_Poisson/pPGM_simulation_dim10_lower_bound_-0.01_upper_bound_-0.005_n_samples_6_iterations_10000.RData"
-load(result)
-data1 <- lapply(names(result), function(name) {
+result1 <- "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations_Poisson/pPGM_simulation_dim10_lower_bound_0_upper_bound_0_n_samples_6_iterations_1e+05_edge_probability_0.8.RData"
+load(result1)
+data_null <- lapply(names(result), function(name) {
   if (grepl("^X_[0-9]+_simulations$", name)) {
-    as.vector(result[[name]][,seq(ncol(result[[name]])/2, ncol(result[[name]]), by = 35) ])
+    as.vector(result[[name]])
   }
 })
-data1 <- as.data.frame(do.call(cbind, data1))
-rownames(data1) <- 1:nrow(data1)
+data_null <- as.data.frame(do.call(cbind, data_null))
+rownames(data_null) <- 1:nrow(data_null)
 
-#I need data dor the other group
-result <- "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations_Poisson/pPGM_simulation_dim10_lower_bound_-0.1_upper_bound_-0.05_n_samples_6_iterations_50000.RData"
-load(result)
-data2 <- lapply(names(result), function(name) {
+result2 <- "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations_Poisson/pPGM_simulation_dim10_lower_bound_0_upper_bound_0_n_samples_6_iterations_1e+05_edge_probability_0.5.RData"
+load(result2)
+data_null_2 <- lapply(names(result), function(name) {
   if (grepl("^X_[0-9]+_simulations$", name)) {
-    as.vector(result[[name]][,seq(ncol(result[[name]])/2, ncol(result[[name]]), by = 35) ])
+    as.vector(result[[name]])
+
   }
 })
-data2 <- as.data.frame(do.call(cbind, data2))
+data_null_2 <- as.data.frame(do.call(cbind, data_null_2))
+rownames(data_null_2) <- 1:nrow(data_null_2)
 
 
-#bring them on the same length
-data2 <- data2[(nrow(data2)-nrow(data1)):nrow(data2),]
-rownames(data2) <- 1:nrow(data2)
 
 
-#for this we need a bit of a different format
-
-#it seems like the data needs to be transformed to proportions but this also does not make too much sense right??
-data1 <- data1 %>% mutate(y = 0)
-data2 <- data2  %>% mutate(y = 1)
-data <- rbind(data1, data2) %>% mutate(y = as.factor(y))
-
-#now we can use the coda4microbiome package
 
 
 #change the permutation test slightly such that I can get a p-value
@@ -210,8 +198,56 @@ coda_glmnet0<-function(x,lrX,idlrX,nameslrX,y, covar=NULL, lambda="lambda.1se",a
   return(results)
 }
 
+input_function <- function(data1, data2)
+{
+# Set 'y' column to 0 in data1
+data1$y <- 0
+
+# Set 'y' column to 1 in data2
+data2$y <- 1
+
+# Combine data1 and data2 into a new data frame 'data'
+data <- rbind(data1, data2)
+
+# Convert 'y' column to a factor
+data$y <- as.factor(data$y)
+
+#do the coda4microbiome test
 test_coda <- coda_glmnet_null_altered(x = data[,1:(ncol(data)-1)], y = data$y, niter = 1000)
-test_coda$p.value
-test_coda
+
+#return results
+return(list(p_value_coda = test_coda$p.value))
+}
+
+library(foreach)
+library(doParallel)
+library(doRNG)
+library(PRROC)
+library(pulsar)
+library(coda4microbiome)
+library(parallel)
+no_cores <- 55
+cl <- makeCluster(no_cores, outfile = "")
+clusterEvalQ(cl, {library(coda4microbiome)
+  library(PRROC)
+  library(pulsar)
+  library(parallel)})
+registerDoParallel(cl)
+
+reps = 20#100
+
+fct <- function(i){
+  out <- input_function(  data1 = data_null[(i*1000)-1000:i*1000,],
+  data2 = data_null_2[(i*1000)-1000:i*1000,])
+  return(out)
+}
+
+time_parallel <- system.time(
+  temp <- foreach(i=1:reps) %dopar% {fct(i)})
+stopCluster(cl)
+time_parallel
+
+result_coda_name <- paste0(gsub("\\.RData$", "", basename(result1)),"_", gsub("\\.RData$", "", basename(result2)), "_coda4microbiome.RData")
+save(temp, time_parallel, file = paste0("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/results_test_H0_coda4microbiome/", result_coda_name))
 
 

@@ -1,0 +1,330 @@
+starting worker pid=31986 on localhost:11939 at 07:37:46.732
+starting worker pid=31998 on localhost:11939 at 07:37:46.851
+starting worker pid=32005 on localhost:11939 at 07:37:46.855
+starting worker pid=31985 on localhost:11939 at 07:37:46.911
+starting worker pid=31997 on localhost:11939 at 07:37:46.921
+starting worker pid=32028 on localhost:11939 at 07:37:46.958
+starting worker pid=31993 on localhost:11939 at 07:37:46.965
+starting worker pid=32017 on localhost:11939 at 07:37:46.977
+starting worker pid=32012 on localhost:11939 at 07:37:46.994
+starting worker pid=31980 on localhost:11939 at 07:37:46.995
+starting worker pid=32010 on localhost:11939 at 07:37:47.015
+starting worker pid=32008 on localhost:11939 at 07:37:47.016
+starting worker pid=32002 on localhost:11939 at 07:37:47.016
+starting worker pid=32019 on localhost:11939 at 07:37:47.030
+starting worker pid=32025 on localhost:11939 at 07:37:47.044
+starting worker pid=31995 on localhost:11939 at 07:37:47.055
+starting worker pid=31989 on localhost:11939 at 07:37:47.061
+starting worker pid=32000 on localhost:11939 at 07:37:47.068
+starting worker pid=31987 on localhost:11939 at 07:37:47.070
+starting worker pid=32032 on localhost:11939 at 07:37:47.074
+starting worker pid=32022 on localhost:11939 at 07:37:47.079
+starting worker pid=32016 on localhost:11939 at 07:37:47.083
+starting worker pid=32031 on localhost:11939 at 07:37:47.086
+starting worker pid=32007 on localhost:11939 at 07:37:47.092
+starting worker pid=32027 on localhost:11939 at 07:37:47.093
+starting worker pid=32020 on localhost:11939 at 07:37:47.094
+starting worker pid=32030 on localhost:11939 at 07:37:47.097
+starting worker pid=32006 on localhost:11939 at 07:37:47.103
+starting worker pid=32011 on localhost:11939 at 07:37:47.105
+starting worker pid=32034 on localhost:11939 at 07:37:47.112
+starting worker pid=32023 on localhost:11939 at 07:37:47.116
+starting worker pid=32003 on localhost:11939 at 07:37:47.119
+starting worker pid=32024 on localhost:11939 at 07:37:47.121
+starting worker pid=31992 on localhost:11939 at 07:37:47.122
+starting worker pid=31981 on localhost:11939 at 07:37:47.128
+starting worker pid=31988 on localhost:11939 at 07:37:47.134
+starting worker pid=32001 on localhost:11939 at 07:37:47.137
+starting worker pid=32013 on localhost:11939 at 07:37:47.148
+starting worker pid=31996 on localhost:11939 at 07:37:47.149
+starting worker pid=31994 on localhost:11939 at 07:37:47.151
+starting worker pid=31999 on localhost:11939 at 07:37:47.152
+starting worker pid=32021 on localhost:11939 at 07:37:47.153
+starting worker pid=32026 on localhost:11939 at 07:37:47.156
+starting worker pid=31984 on localhost:11939 at 07:37:47.159
+starting worker pid=32015 on localhost:11939 at 07:37:47.178
+starting worker pid=32018 on localhost:11939 at 07:37:47.181
+starting worker pid=32029 on localhost:11939 at 07:37:47.182
+starting worker pid=31991 on localhost:11939 at 07:37:47.183
+starting worker pid=32014 on localhost:11939 at 07:37:47.184
+starting worker pid=31983 on localhost:11939 at 07:37:47.187
+starting worker pid=31982 on localhost:11939 at 07:37:47.188
+starting worker pid=31990 on localhost:11939 at 07:37:47.228
+starting worker pid=32009 on localhost:11939 at 07:37:47.264
+starting worker pid=32004 on localhost:11939 at 07:37:47.375
+starting worker pid=32033 on localhost:11939 at 07:37:47.376
+[[1]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[2]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[3]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[4]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[5]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[6]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[7]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[8]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[9]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[10]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[11]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[12]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[13]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[14]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[15]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[16]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[17]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[18]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[19]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[20]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[21]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[22]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[23]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[24]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[25]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[26]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[27]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[28]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[29]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[30]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[31]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[32]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[33]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[34]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[35]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[36]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[37]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[38]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[39]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[40]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[41]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[42]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[43]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[44]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[45]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[46]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[47]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[48]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[49]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[50]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[51]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[52]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[53]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[54]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+
+[[55]]
+ [1] "parallel"        "pulsar"          "PRROC"           "dplyr"          
+ [5] "coda4microbiome" "stats"           "graphics"        "grDevices"      
+ [9] "utils"           "datasets"        "methods"         "base"           
+

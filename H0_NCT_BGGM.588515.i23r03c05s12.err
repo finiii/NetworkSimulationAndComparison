@@ -1,0 +1,538 @@
+Loading r/4.1.2-gcc11-mkl
+  Unloading conflict: intel-mpi/2019-intel intel-oneapi-compilers/2021.4.0
+  Loading requirement: gcc/11.2.0
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Loading required package: iterators
+Loading required package: parallel
+Loading required package: rngtools
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Registered S3 methods overwritten by 'BFpack':
+  method               from
+  get_estimates.lm     bain
+  get_estimates.t_test bain
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+*BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+*BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+****BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+*BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+****BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+********BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+***BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+*********BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+****BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+*BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+*BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+*BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+********BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+*BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+***********************************************|
+*************************************************|
+*********************************************|
+**************************************************|
+***********************************************|
+************************************************|
+**********************************************|
+BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+**************************************************|
+**************************************************|
+*********************************************|
+BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+**************************************************|
+BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+*******************************************|
+***********************************************|
+**************************************************|
+BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+Error in unserialize(socklist[[n]]) : error reading from connection
+Calls: system.time ... recvOneData -> recvOneData.SOCKcluster -> unserialize
+Timing stopped at: 4.905 1.217 2077
+Execution halted
+**************************************************|
+Error in unserialize(node$con) : error reading from connection
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+Execution halted
+Warning message:
+system call failed: Cannot allocate memory 
+*********************************************|
+Error in unserialize(node$con) : error reading from connection
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+Execution halted
+Warning message:
+system call failed: Cannot allocate memory 
+BGGM: Predictive Check (Contrast 1)
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|

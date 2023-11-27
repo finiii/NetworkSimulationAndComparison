@@ -24,8 +24,6 @@ data_null_2 <- lapply(names(result), function(name) {
 data_null_2 <- as.data.frame(do.call(cbind, data_null_2))
 rownames(data_null_2) <- 1:nrow(data_null_2)
 
-data1 <- data_null[1:1000,]
-data2 <- data_null_2[1:1000,]
 
 input_function <- function(data1, data2)
 {
@@ -49,15 +47,16 @@ library(pulsar)
 library(NetworkComparisonTest)
 library(BGGM)
 library(parallel)
-no_cores <- 55
+no_cores <- 30#55
 cl <- makeCluster(no_cores, outfile = "")
-clusterEvalQ(cl, {library(COZINE)
+clusterEvalQ(cl, {library(NetworkComparisonTest)
+  library(BGGM)
   library(PRROC)
   library(pulsar)
   library(parallel)})
 registerDoParallel(cl)
 
-reps = 100
+reps = 20#100
 
 fct <- function(i){
   out <- input_function(  data1 = data_null[(i*1000)-1000:i*1000,],
@@ -72,6 +71,5 @@ time_parallel <- system.time(
 stopCluster(cl)
 time_parallel
 
-result_NCT_BGGM <- data.frame(NCT_pval, BGGM_pval)
 result_NCT_BGGM_name <- paste0(gsub("\\.RData$", "", basename(result1)),"_", gsub("\\.RData$", "", basename(result2)), "_NCT_BGGM.RData")
-save(temp, time_parallel, file = paste0("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/diagnostic_plots/results_test_NCT_BGGM/", result_NCT_BGGM_name))
+save(temp, time_parallel, file = paste0("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/results_test_H0_NCT_BGGM/", result_NCT_BGGM_name))

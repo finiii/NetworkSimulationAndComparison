@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH -J H0_NCT_BGGM
+#SBATCH -J H0_coda4microbiome
 #SBATCH -o ./%x.%j.%N.out
 #SBATCH -e ./%x.%j.%N.err
 #SBATCH -D ./
@@ -23,4 +23,4 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lrz/sys/spack/release/22.2.1/opt/x86_64
 
 module load r
 
-Rscript test_H0_NCT_BGGM.R
+Rscript test_H0_coda4microbiome.R

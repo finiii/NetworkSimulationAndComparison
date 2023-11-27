@@ -17,7 +17,7 @@ library(coda)
 dim = 10
 
 #set the parameter values
-eta_0 = rep(2, dim)
+eta_0 = rep(5, dim)
 #eta_0 = rep(1, 10) *runif(10, 0, 1)
 #eta_1 = eta_0
 
@@ -28,8 +28,8 @@ n_samples = 6
 theta <- matrix(0, nrow = dim, ncol = dim)
 
 #swet the upper and the lower bound for the uniform distribution the edge weights are drawn from
-lower_bound = -0.1
-upper_bound = -0.05
+lower_bound = -0.01
+upper_bound = -0.005
 
 # Fill the upper triangular part with random negative values
 #for (i in 1:(dim - 1)) {
@@ -48,7 +48,7 @@ upper_bound = -0.05
 #generate a matrix from a random graph and weight it
 
 #probability of an edge
-edge_probability = 0.3
+edge_probability = 0.8
 
 #samples a random graph with d nodes
 #every possible edge is present with probability prob
@@ -83,7 +83,7 @@ for (i in 1:dim){
 }
 
 # iterations
-iterations = 20000  #N
+iterations = 500000  #N
 burn_in = iterations/2 # burn in length
 
 
@@ -129,7 +129,6 @@ for(loop in 1:iterations){
       name <- paste0("X_", i, "_simulations")
       assign(name, cbind(get(name), X_new[i,]))
     }
-    print(loop)
   }
 
 simulation_name <- paste0("pPGM_simulation_dim", dim, "_lower_bound_", lower_bound, "_upper_bound_", upper_bound, "_n_samples_", n_samples, "_iterations_", iterations, "_edge_probability_", edge_probability)
@@ -140,7 +139,7 @@ for (i in 1:dim){
   name <- paste0("X_", i, "_simulations")
   result[[name]] <- get(name)
 }
-save(result, file = paste0("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations_Poisson/", simulation_name,".RData"))
+save(result, file = paste0("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations_poisson_final/", simulation_name,".RData"))
 
 #I took this function from the coda package and changed it a bit
 "gelman.preplot" <-
@@ -262,7 +261,7 @@ data_final_samples <- lapply(names(result), function(name) {
 data_final_samples <- as.data.frame(do.call(cbind, data_final_samples))
 
 #diagnostic plots
-pdf(file = paste0("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/diagnostic_plots/", simulation_name,".pdf"))
+pdf(file = paste0("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations_poisson_final/", simulation_name,".pdf"))
 
 
 
@@ -303,7 +302,7 @@ for(i in 1:dim){
 
 dev.off()
 
-txt_file = paste0("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/diagnostic_plots/", simulation_name,".txt")
+txt_file = paste0("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations_poisson_final/", simulation_name,".txt")
 sink(txt_file)
 #here I print the automatic diagnostics
 print("Convergence check with the Rubin-Gelman diagnostic")
@@ -324,7 +323,4 @@ print("The mean effective sample size without burnin is")
 print(mean_ESS_without_burnin)
 sink()
 
-load("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations_Poisson/pPGM_simulation_dim100_lower_bound_-10_upper_bound_-5_n_samples_6_iterations_70000.RData")
-#calculate the mean and the mean covariance matrix
-#I want this mean over all components
 
