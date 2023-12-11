@@ -14,10 +14,10 @@ library(coda)
 
 
 # set the dimension/length of X (p in the thesis)
-dim = 10
+dim = 50
 
 #set the parameter values
-eta_0 = rep(5, dim)
+eta_0 = rep(2, dim)
 #eta_0 = rep(1, 10) *runif(10, 0, 1)
 #eta_1 = eta_0
 
@@ -28,8 +28,8 @@ n_samples = 6
 theta <- matrix(0, nrow = dim, ncol = dim)
 
 #swet the upper and the lower bound for the uniform distribution the edge weights are drawn from
-lower_bound = -0.01
-upper_bound = -0.005
+lower_bound = -0.1
+upper_bound = -0.05
 
 # Fill the upper triangular part with random negative values
 #for (i in 1:(dim - 1)) {
@@ -48,7 +48,7 @@ upper_bound = -0.005
 #generate a matrix from a random graph and weight it
 
 #probability of an edge
-edge_probability = 0.8
+edge_probability = 0.3
 
 #samples a random graph with d nodes
 #every possible edge is present with probability prob
@@ -83,7 +83,7 @@ for (i in 1:dim){
 }
 
 # iterations
-iterations = 500000  #N
+iterations = 100000  #N
 burn_in = iterations/2 # burn in length
 
 

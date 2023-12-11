@@ -1,33 +1,101 @@
-library(coda4microbiome)
 
-result1 <- "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations_Poisson/pPGM_simulation_dim10_lower_bound_0_upper_bound_0_n_samples_6_iterations_1e+05_edge_probability_0.8.RData"
+##library(coda4microbiome)
+library(glmnet)
+library(pROC)
+library(ggpubr)
+
+#result1 <- "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations_Poisson/pPGM_simulation_dim10_lower_bound_0_upper_bound_0_n_samples_6_iterations_1e+05_edge_probability_0.8.RData"
+#load(result1)
+#data_null <- lapply(names(result), function(name) {
+#  if (grepl("^X_[0-9]+_simulations$", name)) {
+#    as.vector(result[[name]])
+#  }
+#})
+#data_null <- as.data.frame(do.call(cbind, data_null))
+#rownames(data_null) <- 1:nrow(data_null)
+
+#rm(result)
+
+#result2 <- "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations_Poisson/pPGM_simulation_dim10_lower_bound_0_upper_bound_0_n_samples_6_iterations_1e+05_edge_probability_0.5.RData"
+#load(result2)
+#data_null_2 <- lapply(names(result), function(name) {
+#  if (grepl("^X_[0-9]+_simulations$", name)) {
+#    as.vector(result[[name]])
+#
+#  }
+#})
+#data_null_2 <- as.data.frame(do.call(cbind, data_null_2))
+#rownames(data_null_2) <- 1:nrow(data_null_2)
+
+#rm(result)
+
+result1 <- "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations_poisson_final/pPGM_simulation_dim20_lower_bound_0_upper_bound_0_n_samples_6_iterations_1e+05_edge_probability_0.8.RData"
 load(result1)
+
 data_null <- lapply(names(result), function(name) {
   if (grepl("^X_[0-9]+_simulations$", name)) {
     as.vector(result[[name]])
+    #as.vector(result[[name]][,seq(ncol(result[[name]])/2, ncol(result[[name]]), by = 10) ])
   }
 })
 data_null <- as.data.frame(do.call(cbind, data_null))
-rownames(data_null) <- 1:nrow(data_null)
+rm(result)
 
-result2 <- "/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/simulations_Poisson/pPGM_simulation_dim10_lower_bound_0_upper_bound_0_n_samples_6_iterations_1e+05_edge_probability_0.5.RData"
-load(result2)
-data_null_2 <- lapply(names(result), function(name) {
-  if (grepl("^X_[0-9]+_simulations$", name)) {
-    as.vector(result[[name]])
-
+impute_zeros<-function(x){
+  if (min(as.numeric(unlist(x)))< 0) {
+    stop("Negative abundance values (check your data)")
+  } else {
+    if (sum(x==0)>0){
+      #xmin = min(x[x > 0]);
+      xmin = min(as.numeric(unlist(x))[as.numeric(unlist(x))>0])
+      if (xmin >= 1){
+        x = x + 1;
+      }else{
+        x = x+xmin/2;
+      }
+    }
   }
-})
-data_null_2 <- as.data.frame(do.call(cbind, data_null_2))
-rownames(data_null_2) <- 1:nrow(data_null_2)
+  return(x)
+}
 
 
+logratios_matrix<-function(x){
+
+  x<-impute_zeros(x)
+
+  if(is.null(colnames(x))) colnames(x)<-(1:ncol(x))
+
+  k<-ncol(x)
+  m<-nrow(x)
+
+  logx <- log(x)
+  lrcolnames<-NULL
+  lrX <- matrix(0,m,k*(k-1)/2)
+  idlrX <- matrix(0,k*(k-1)/2,2)
+  nameslrX <- matrix(0,k*(k-1)/2,2)
+  colnamesx <- colnames(x)
+  lloc <-0
+  for(i in (1:(k-1))){
+    for(j in ((i+1):k)) {
+      lloc=lloc+1
+      idlrX[lloc,]<-c(i,j)
+      nameslrX[lloc,] <- c(colnamesx[i],colnamesx[j])
+      lrX[,lloc] <- logx[,i]-logx[,j]
+      lrcolnames<-c(lrcolnames,paste(paste("lr",i,sep=""),j,sep="."))
+    }
+  }
+  colnames(lrX)<-lrcolnames
+  results <- list(
+    "matrix of log-ratios" = lrX,
+    "pairs of variables in the logratio" = idlrX,
+    "names of the variables in the logratio" = nameslrX
+  )
+
+  return(results)
+}
 
 
-
-
-#change the permutation test slightly such that I can get a p-value
-coda_glmnet_null_altered<-function(x,y,niter=100,covar=NULL,lambda="lambda.1se", alpha=0.9,sig=0.05){
+coda_glmnet_null<-function(x,y,niter=100,covar=NULL,lambda="lambda.1se", alpha=0.9,sig=0.05){
 
   alpha0<-alpha
   lambda0<-lambda
@@ -42,15 +110,8 @@ coda_glmnet_null_altered<-function(x,y,niter=100,covar=NULL,lambda="lambda.1se",
   idlrX<-lrmatrix[[2]]
   nameslrX<-lrmatrix[[3]]
 
-  #my change: also calculate the accuracy with the original data
-  lr<-coda_glmnet0(x=x,lrX=lrX,idlrX=idlrX,nameslrX=nameslrX,y=y1,lambda=lambda0,covar=covar0, alpha=alpha0)
-  if (y.binary==TRUE){
-      res<-lr$`mean cv-AUC`
-    } else {
-      res<-lr$`mean cv-MSE`
-    }
-  accuracy0 <- res
   accuracy<-rep(0,niter)
+  accuracy0 <- coda_glmnet0(x=x,lrX=lrX,idlrX=idlrX,nameslrX=nameslrX,y=y1,lambda=lambda0,covar=covar0, alpha=alpha0)$`mean cv-AUC`
   for(i in (1:niter)){
     y1<-sample(y1)
     lr<-coda_glmnet0(x=x,lrX=lrX,idlrX=idlrX,nameslrX=nameslrX,y=y1,lambda=lambda0,covar=covar0, alpha=alpha0)
@@ -64,14 +125,13 @@ coda_glmnet_null_altered<-function(x,y,niter=100,covar=NULL,lambda="lambda.1se",
   }
   results <- list(
     "accuracy"=accuracy,
-    "confidence interval"=quantile(accuracy, c((sig/2),(1-(sig/2)))),
-    "p.value" = sum(accuracy >= accuracy0)/(niter),
-    "accuracy0" = accuracy0
+    "accuracy0"=accuracy0,
+    "p-value"=sum(accuracy>=accuracy0)/niter,
+    "confidence interval"=quantile(accuracy, c((sig/2),(1-(sig/2))))
   )
   return(results)
 }
 
-#need to add this internal function from their github repo
 coda_glmnet0<-function(x,lrX,idlrX,nameslrX,y, covar=NULL, lambda="lambda.1se",alpha=0.9){
   #suppressWarnings()
 
@@ -94,21 +154,21 @@ coda_glmnet0<-function(x,lrX,idlrX,nameslrX,y, covar=NULL, lambda="lambda.1se",a
 
   if (y.binary==TRUE){
     if(is.null(covar)){
-      lassocv<-glmnet::cv.glmnet(lrXsub,y, family = "binomial" , alpha=alpha, type.measure = "auc", keep=TRUE)
+      lassocv<-glmnet::cv.glmnet(lrXsub,y, family = "binomial" , alpha=alpha, type.measure = "auc", keep=TRUE, parallel = TRUE)
     } else {
       df0<-data.frame(y,covar)
       model0<-glm(y~., family = "binomial", data=df0)
       x0<-predict(model0)
-      lassocv<-glmnet::cv.glmnet(lrXsub,y, family = "binomial" , offset=x0,alpha=alpha, type.measure = "auc", keep=TRUE)
+      lassocv<-glmnet::cv.glmnet(lrXsub,y, family = "binomial" , offset=x0,alpha=alpha, type.measure = "auc", keep=TRUE, parallel = TRUE)
     }
   } else {
     if(is.null(covar)){
-      lassocv<-glmnet::cv.glmnet(lrXsub,y , alpha=alpha, type.measure = "deviance", keep=TRUE)
+      lassocv<-glmnet::cv.glmnet(lrXsub,y , alpha=alpha, type.measure = "deviance", keep=TRUE, parallel = TRUE)
     } else {
       df0<-data.frame(y,covar)
       model0<-lm(y~., data=df0)
       x0<-predict(model0)
-      lassocv<-glmnet::cv.glmnet(lrXsub,y , offset=x0, alpha=alpha, type.measure = "deviance", keep=TRUE)
+      lassocv<-glmnet::cv.glmnet(lrXsub,y , offset=x0, alpha=alpha, type.measure = "deviance", keep=TRUE, parallel = TRUE)
     }
   }
 
@@ -213,10 +273,10 @@ data <- rbind(data1, data2)
 data$y <- as.factor(data$y)
 
 #do the coda4microbiome test
-test_coda <- coda_glmnet_null_altered(x = data[,1:(ncol(data)-1)], y = data$y, niter = 1000)
-
+#test_coda <- coda_glmnet_null_altered(x = data[,1:(ncol(data)-1)], y = data$y, niter = 1000)
+p_value_coda <- coda_glmnet_null(x = data[,1:(ncol(data)-1)], y = data$y, niter = 1000)$`p-value`
 #return results
-return(list(p_value_coda = test_coda$p.value))
+return(list(p_value_coda = p_value_coda))
 }
 
 library(foreach)
@@ -224,30 +284,48 @@ library(doParallel)
 library(doRNG)
 library(PRROC)
 library(pulsar)
-library(coda4microbiome)
+library(glmnet)
+library(pROC)
+library(ggpubr)
+#library(coda4microbiome)
 library(parallel)
-no_cores <- 55
-cl <- makeCluster(no_cores, outfile = "")
-clusterEvalQ(cl, {library(coda4microbiome)
-  library(PRROC)
-  library(pulsar)
-  library(parallel)})
+no_cores <- 4
+cl <- makeCluster(no_cores, outfile = "log.txt")
+clusterEvalQ(cl, {#library(coda4microbiome)
+library(glmnet)
+library(pROC)
+library(ggpubr)
+ library(pulsar)
+ library(parallel)
+ })
+
+
 registerDoParallel(cl)
 
-reps = 20#100
+reps = 100
 
 fct <- function(i){
-  out <- input_function(  data1 = data_null[(i*1000)-1000:i*1000,],
-  data2 = data_null_2[(i*1000)-1000:i*1000,])
+  out <- input_function(  data1 = data_null[sample(nrow(data_null), 1000),],
+  data2 = data_null[sample(nrow(data_null), 1000),])
   return(out)
 }
+
 
 time_parallel <- system.time(
   temp <- foreach(i=1:reps) %dopar% {fct(i)})
 stopCluster(cl)
 time_parallel
 
-result_coda_name <- paste0(gsub("\\.RData$", "", basename(result1)),"_", gsub("\\.RData$", "", basename(result2)), "_coda4microbiome.RData")
-save(temp, time_parallel, file = paste0("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/results_test_H0_coda4microbiome/", result_coda_name))
+
+result_coda_name <- paste0(gsub("\\.RData$", "", basename(result1)), "_coda4microbiome.RData")
+save(temp, file = paste0("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/results_test_H0_coda4microbiome/", result_coda_name))
+
+#time_parallel <- system.time(
+#  temp <- foreach(i=1:reps) %dopar% {fct(i)})
+#stopCluster(cl)
+#time_parallel
+
+#result_coda_name <- paste0(gsub("\\.RData$", "", basename(result1)),"_", gsub("\\.RData$", "", basename(result2)), "_coda4microbiome.RData")
+#save(temp, time_parallel, file = paste0("/dss/dsshome1/03/ga27hec2/NetworkSimulationAndComparison/results_test_H0_coda4microbiome/", result_coda_name))
 
 
